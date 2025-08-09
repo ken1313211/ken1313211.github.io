@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>173My Portfolio</title>
+    <title>My Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,7 @@
             --header-bg: rgba(11, 11, 15, 0.8);
         }
 
-        /* --- Horizontal Scroll Fix (ADDED) --- */
+        /* --- Horizontal Scroll Fix --- */
         html, body {
             width: 100%;
             overflow-x: hidden;
@@ -81,7 +81,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- Page Layout --- */
+        /* --- Page Layout & Tile Styling --- */
         .page { display: none; animation: fadeIn 0.4s ease-in-out; }
         .page.active { display: block; }
         .hero-gradient-bottom {
@@ -91,6 +91,11 @@
         .card-border-gradient {
             border: 1px solid transparent;
             background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(120deg, #4F46E5, #A855F7, #EC4899) border-box;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-border-gradient:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
         /* --- Netflix Splash Screen --- */
@@ -113,10 +118,9 @@
             }
         }
 
-        /* --- Mobile Menu Animation (FIXED) --- */
+        /* --- Mobile Menu Animation --- */
         #mobile-menu {
             transform: translateX(100%);
-            /* Use visibility to prevent layout breaking */
             visibility: hidden;
             transition: transform 0.3s ease-in-out, visibility 0.3s;
         }
@@ -138,7 +142,7 @@
             transform: translate(1px, -2px) rotate(-45deg) scaleX(0.8);
         }
 
-        /* --- Modal Overlay Style (ADDED) --- */
+        /* --- Modal Overlay Style --- */
         .modal-overlay {
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
@@ -165,8 +169,9 @@
     <div id="profiles-screen" class="fixed inset-0 z-40 flex-col items-center justify-center transition-opacity duration-500 hidden">
         <h1 class="text-3xl md:text-5xl font-semibold mb-8">Who's watching</h1>
         <div class="flex flex-wrap justify-center gap-4 md:gap-8">
-            <div class="profile-card text-center cursor-pointer group">
-                <div class="w-20 h-20 md:w-28 md:h-28 rounded-md overflow-hidden border-2 border-transparent group-hover:border-pink-500 transition-all duration-200">
+            <!-- Added data-img-src to easily grab the image URL -->
+            <div class="profile-card text-center cursor-pointer group" data-img-src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+                <div class="w-24 h-24 md:w-32 md:h-32 rounded-md overflow-hidden border-2 border-transparent group-hover:border-pink-500 transition-all duration-200">
                     <img src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" onerror="this.onerror=null;this.src='https://placehold.co/150x150/EC4899/FFFFFF?text=R';" alt="Hiring Manager" class="w-full h-full object-cover">
                 </div>
                 <p class="mt-2 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-200">Recruiter</p>
@@ -176,39 +181,37 @@
 
     <!-- Main Portfolio Content -->
     <div id="main-content" class="hidden opacity-0 transition-opacity duration-500">
-        <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-10 py-4 backdrop-blur-sm shadow-sm dark:shadow-none" style="background-color: var(--header-bg)">
-            <div class="container mx-auto flex items-center justify-between">
-                <div class="flex items-center gap-8">
-                    <a href="#home" id="portfolio-logo-link" class="cursor-pointer">
-                        <h1 class="text-2xl md:text-3xl font-bold gradient-text">PORTFOLIO</h1>
-                    </a>
-                    <nav id="main-nav" class="hidden md:flex items-center gap-5">
-                        <a href="#home" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Home</a>
-                        <a href="#skills" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Skills</a>
-                        <a href="#projects" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Projects</a>
-                        <a href="#contact" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Contact</a>
-                    </nav>
+        <!-- Header now has padding and flex properties directly, no more inner container -->
+        <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-10 py-4 backdrop-blur-sm shadow-sm dark:shadow-none flex items-center justify-between" style="background-color: var(--header-bg)">
+            <div class="flex items-center gap-8">
+                <a href="#home" id="portfolio-logo-link" class="cursor-pointer">
+                    <h1 class="text-2xl md:text-3xl font-bold gradient-text">PORTFOLIO</h1>
+                </a>
+                <nav id="main-nav" class="hidden md:flex items-center gap-5">
+                    <a href="#home" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Home</a>
+                    <a href="#skills" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Skills</a>
+                    <a href="#projects" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Projects</a>
+                    <a href="#contact" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Contact</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <svg id="theme-icon-sun" class="h-5 w-5 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                    <svg id="theme-icon-moon" class="h-5 w-5 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                </button>
+                <!-- This is the new profile icon that replaces the SVG button -->
+                <div id="nav-profile-icon" class="w-8 h-8 md:w-10 md:h-10 rounded-md overflow-hidden cursor-pointer hidden">
+                    <img id="nav-profile-img" src="" alt="User Profile" class="w-full h-full object-cover">
                 </div>
-                <div class="flex items-center gap-4">
-                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                        <svg id="theme-icon-sun" class="h-5 w-5 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                        <svg id="theme-icon-moon" class="h-5 w-5 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
-                    </button>
-                    <button id="switch-profile-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" title="Switch Profile">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-800 dark:text-gray-200" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="p-2 rounded-md text-gray-300 hover:text-white z-50 relative h-8 w-8">
+                       <svg class="h-full w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path class="hamburger-bar hamburger-top" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16" />
+                            <path class="hamburger-bar hamburger-middle" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16" />
+                            <path class="hamburger-bar hamburger-bottom" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 18h16" />
                         </svg>
                     </button>
-                    <!-- Mobile Menu Button -->
-                    <div class="md:hidden">
-                        <button id="mobile-menu-button" class="p-2 rounded-md text-gray-300 hover:text-white z-50 relative h-8 w-8">
-                           <svg class="h-full w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path class="hamburger-bar hamburger-top" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16" />
-                                <path class="hamburger-bar hamburger-middle" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16" />
-                                <path class="hamburger-bar hamburger-bottom" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 18h16" />
-                            </svg>
-                        </button>
-                    </div>
                 </div>
             </div>
         </header>
@@ -223,10 +226,10 @@
             </nav>
         </div>
 
-        <main class="pt-16">
+        <main class="pt-20">
             <!-- Home Page -->
             <div id="home-page" class="page">
-                <section class="relative h-[calc(100vh-4rem)] flex items-center justify-start">
+                <section class="relative h-[calc(100vh-5rem)] flex items-center justify-start">
                     <div class="absolute inset-0">
                         <img src="https://media.giphy.com/media/yHI4yDBgzBvA4/giphy.gif" 
                              onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/000000/FFFFFF?text=Movie+Scene';"
@@ -254,20 +257,21 @@
                 <section class="py-16 px-4 md:px-10 lg:px-20">
                     <h3 class="text-3xl font-bold mb-10 text-center">My <span class="gradient-text">Tech Stack</span></h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <div class="card-bg rounded-lg p-6 text-center slide-in-up card-border-gradient" style="animation-delay: 100ms;">
-                            <h4 class="font-bold text-xl">BI & Visualization</h4>
+                        <!-- Skill cards are now larger and more elegant -->
+                        <div class="card-bg rounded-lg p-8 text-center slide-in-up card-border-gradient" style="animation-delay: 100ms;">
+                            <h4 class="font-bold text-xl mb-2">BI & Visualization</h4>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Power BI Desktop, DAX, Power Query (M), Data Modeling, Report Design</p>
                         </div>
-                        <div class="card-bg rounded-lg p-6 text-center slide-in-up card-border-gradient" style="animation-delay: 200ms;">
-                            <h4 class="font-bold text-xl">Data Sources & ETL</h4>
+                        <div class="card-bg rounded-lg p-8 text-center slide-in-up card-border-gradient" style="animation-delay: 200ms;">
+                            <h4 class="font-bold text-xl mb-2">Data Sources & ETL</h4>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">SQL Server, T-SQL, Azure SQL, Excel, SharePoint Lists, SSIS</p>
                         </div>
-                        <div class="card-bg rounded-lg p-6 text-center slide-in-up card-border-gradient" style="animation-delay: 300ms;">
-                            <h4 class="font-bold text-xl">Programming & Scripting</h4>
+                        <div class="card-bg rounded-lg p-8 text-center slide-in-up card-border-gradient" style="animation-delay: 300ms;">
+                            <h4 class="font-bold text-xl mb-2">Programming & Scripting</h4>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Python (Pandas, Matplotlib), R for advanced analytics, PowerShell</p>
                         </div>
-                        <div class="card-bg rounded-lg p-6 text-center slide-in-up card-border-gradient" style="animation-delay: 400ms;">
-                            <h4 class="font-bold text-xl">Supporting Technologies</h4>
+                        <div class="card-bg rounded-lg p-8 text-center slide-in-up card-border-gradient" style="animation-delay: 400ms;">
+                            <h4 class="font-bold text-xl mb-2">Supporting Technologies</h4>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Azure (Data Factory, Synapse), Power Platform (Power Apps, Power Automate), Git</p>
                         </div>
                     </div>
@@ -311,7 +315,6 @@
                 <h3 id="modal-title" class="text-xl font-bold gradient-text"></h3>
                 <button id="close-modal-btn" class="text-2xl font-bold leading-none text-gray-400 hover:text-gray-800 dark:hover:text-white">&times;</button>
             </div>
-            <!-- This container now has min-w-0 to prevent overflow on small screens -->
             <div class="p-6 flex-grow overflow-y-auto no-scrollbar text-gray-700 dark:text-gray-300 min-w-0">
                 <div class="relative mb-4">
                     <img id="modal-image" src="" alt="Project Image" class="w-full h-auto rounded-lg">
@@ -338,19 +341,21 @@
             const profilesScreen = document.getElementById('profiles-screen');
             const mainContent = document.getElementById('main-content');
             const profileCards = document.querySelectorAll('.profile-card');
-            const mainNav = document.getElementById('main-nav');
             const navLinks = document.querySelectorAll('.nav-link');
             const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
             const navButtons = document.querySelectorAll('.nav-button');
             const pages = document.querySelectorAll('.page');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            const switchProfileBtn = document.getElementById('switch-profile-btn');
             const portfolioLogoLink = document.getElementById('portfolio-logo-link');
             const themeToggle = document.getElementById('theme-toggle');
             const sunIcon = document.getElementById('theme-icon-sun');
             const moonIcon = document.getElementById('theme-icon-moon');
             
+            // New elements for the profile icon in the nav
+            const navProfileIcon = document.getElementById('nav-profile-icon');
+            const navProfileImg = document.getElementById('nav-profile-img');
+
             const projectModal = document.getElementById('project-modal');
             const closeModalBtn = document.getElementById('close-modal-btn');
             const modalTitle = document.getElementById('modal-title');
@@ -422,10 +427,11 @@
                 const projectEl = document.createElement('div');
                 projectEl.className = 'project-card-container slide-in-up';
                 projectEl.style.animationDelay = `${100 * (index + 1)}ms`;
+                // Project tiles are now larger (h-56)
                 projectEl.innerHTML = `
                     <div class="project-card group cursor-pointer" data-project-id="${project.id}">
                         <div class="card-bg rounded-lg overflow-hidden card-border-gradient">
-                            <img src="${project.images[0]}" alt="${project.title}" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
+                            <img src="${project.images[0]}" alt="${project.title}" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
                         </div>
                         <h4 class="font-semibold mt-3 text-gray-900 dark:text-white">${project.title}</h4>
                     </div>
@@ -531,6 +537,11 @@
             profileCards.forEach((card, index) => {
                 card.style.animationDelay = `${index * 100 + 100}ms`;
                 card.addEventListener('click', () => {
+                    // Set the profile image in the nav bar
+                    const imgSrc = card.dataset.imgSrc;
+                    navProfileImg.src = imgSrc;
+                    navProfileIcon.classList.remove('hidden');
+
                     profilesScreen.style.opacity = '0';
                     setTimeout(() => {
                         profilesScreen.style.display = 'none';
@@ -542,12 +553,14 @@
                 });
             });
             
-            switchProfileBtn.addEventListener('click', () => {
+            // Event listener for the new nav profile icon to switch back
+            navProfileIcon.addEventListener('click', () => {
                  mainContent.style.opacity = '0';
                  setTimeout(() => {
                     mainContent.style.display = 'none';
                     profilesScreen.style.display = 'flex';
                     profilesScreen.style.opacity = '1';
+                    navProfileIcon.classList.add('hidden'); // Hide icon when going back
                  }, 500);
             });
 
