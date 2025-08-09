@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-black">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +10,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #F0F2F5;
+            --text-color: #1A1A1A;
+            --card-bg: #FFFFFF;
+            --text-muted: #4a5568;
+            --header-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        html.dark {
+            --bg-color: #0B0B0F;
+            --text-color: #E0E0E0;
+            --card-bg: #16161A;
+            --text-muted: #a0aec0;
+            --header-bg: rgba(11, 11, 15, 0.8);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0B0B0F;
-            color: #E0E0E0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -62,12 +79,12 @@
         .page { display: none; animation: fadeIn 0.4s ease-in-out; }
         .page.active { display: block; }
         .hero-gradient-bottom {
-             background-image: linear-gradient(to top, #0B0B0F 10%, rgba(11, 11, 15, 0) 100%);
+             background-image: linear-gradient(to top, var(--bg-color) 10%, rgba(11, 11, 15, 0) 100%);
         }
-        .card-bg { background-color: #16161A; }
+        .card-bg { background-color: var(--card-bg); }
         .card-border-gradient {
             border: 1px solid transparent;
-            background: linear-gradient(#16161A, #16161A) padding-box, linear-gradient(120deg, #4F46E5, #A855F7, #EC4899) border-box;
+            background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(120deg, #4F46E5, #A855F7, #EC4899) border-box;
         }
 
         /* --- Netflix Splash Screen --- */
@@ -113,7 +130,7 @@
         }
     </style>
 </head>
-<body class="text-white">
+<body>
 
     <!-- Netflix Splash Screen -->
     <div id="netflix-splash" class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500">
@@ -130,36 +147,40 @@
     </div>
 
     <!-- Who's Watching Screen -->
-    <div id="profiles-screen" class="fixed inset-0 z-40 flex-col items-center justify-center bg-[#0B0B0F] transition-opacity duration-500 hidden">
+    <div id="profiles-screen" class="fixed inset-0 z-40 flex-col items-center justify-center transition-opacity duration-500 hidden">
         <h1 class="text-3xl md:text-5xl font-semibold mb-8">Who's watching</h1>
         <div class="flex flex-wrap justify-center gap-4 md:gap-8">
             <div class="profile-card text-center cursor-pointer group">
                 <div class="w-20 h-20 md:w-28 md:h-28 rounded-md overflow-hidden border-2 border-transparent group-hover:border-pink-500 transition-all duration-200">
                     <img src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" onerror="this.onerror=null;this.src='https://placehold.co/150x150/EC4899/FFFFFF?text=R';" alt="Hiring Manager" class="w-full h-full object-cover">
                 </div>
-                <p class="mt-2 text-gray-400 group-hover:text-white transition-colors duration-200">Recruiter</p>
+                <p class="mt-2 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-200">Recruiter</p>
             </div>
         </div>
     </div>
 
     <!-- Main Portfolio Content -->
     <div id="main-content" class="hidden opacity-0 transition-opacity duration-500">
-        <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-10 py-4 bg-[#0B0B0F]/80 backdrop-blur-sm">
+        <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-10 py-4 backdrop-blur-sm shadow-sm dark:shadow-none" style="background-color: var(--header-bg)">
             <div class="container mx-auto flex items-center justify-between">
                 <div class="flex items-center gap-8">
                     <a href="#home" id="portfolio-logo-link" class="cursor-pointer">
                         <h1 class="text-2xl md:text-3xl font-bold gradient-text">PORTFOLIO</h1>
                     </a>
                     <nav id="main-nav" class="hidden md:flex items-center gap-5">
-                        <a href="#home" class="nav-link text-sm text-gray-300 hover:text-white transition-colors">Home</a>
-                        <a href="#skills" class="nav-link text-sm text-gray-300 hover:text-white transition-colors">Skills</a>
-                        <a href="#projects" class="nav-link text-sm text-gray-300 hover:text-white transition-colors">Projects</a>
-                        <a href="#contact" class="nav-link text-sm text-gray-300 hover:text-white transition-colors">Contact</a>
+                        <a href="#home" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Home</a>
+                        <a href="#skills" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Skills</a>
+                        <a href="#projects" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Projects</a>
+                        <a href="#contact" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Contact</a>
                     </nav>
                 </div>
                 <div class="flex items-center gap-4">
-                    <button id="switch-profile-btn" class="p-2 rounded-full hover:bg-gray-700 transition-colors" title="Switch Profile">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        <svg id="theme-icon-sun" class="h-5 w-5 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        <svg id="theme-icon-moon" class="h-5 w-5 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                    </button>
+                    <button id="switch-profile-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" title="Switch Profile">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-800 dark:text-gray-200" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                         </svg>
                     </button>
@@ -178,12 +199,12 @@
         </header>
 
          <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden fixed top-0 right-0 h-full w-full bg-[#0B0B0F] z-30 flex flex-col items-center justify-center">
+        <div id="mobile-menu" class="md:hidden fixed top-0 right-0 h-full w-full z-30 flex flex-col items-center justify-center" style="background-color: var(--bg-color);">
             <nav class="flex flex-col items-center gap-8">
-                <a href="#home" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Home</a>
-                <a href="#skills" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Skills</a>
-                <a href="#projects" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Projects</a>
-                <a href="#contact" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Contact</a>
+                <a href="#home" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
+                <a href="#skills" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Skills</a>
+                <a href="#projects" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Projects</a>
+                <a href="#contact" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
             </nav>
         </div>
 
@@ -199,13 +220,13 @@
                         <div class="absolute bottom-0 left-0 right-0 h-40 hero-gradient-bottom"></div>
                     </div>
                     <div class="relative z-10 px-4 md:px-10 lg:px-20 max-w-2xl slide-in-up">
-                        <h2 class="text-4xl md:text-6xl font-black uppercase tracking-wider">Hi, I'm a Power BI Developer</h2>
-                        <p class="mt-4 text-lg text-gray-300">Welcome to my portfolio. I specialize in transforming data into compelling stories and actionable insights that drive business decisions.</p>
+                        <h2 class="text-4xl md:text-6xl font-black uppercase tracking-wider text-white">Hi, I'm a Power BI Developer</h2>
+                        <p class="mt-4 text-lg text-gray-200 dark:text-gray-300">Welcome to my portfolio. I specialize in transforming data into compelling stories and actionable insights that drive business decisions.</p>
                         <div class="mt-8 flex gap-4">
                             <button data-target="#projects" class="nav-button gradient-button text-white font-bold py-3 px-8 rounded-full flex items-center gap-2">
                                 My Work
                             </button>
-                            <button data-target="#contact" class="nav-button bg-gray-700/50 text-white font-bold py-3 px-8 rounded-full flex items-center gap-2 hover:bg-gray-700/80 transition-colors">
+                            <button data-target="#contact" class="nav-button bg-gray-100/20 dark:bg-gray-700/50 text-white font-bold py-3 px-8 rounded-full flex items-center gap-2 hover:bg-gray-100/30 dark:hover:bg-gray-700/80 transition-colors">
                                 Contact Info
                             </button>
                         </div>
@@ -220,19 +241,19 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         <div class="card-bg rounded-lg p-6 text-center slide-in-up card-border-gradient" style="animation-delay: 100ms;">
                             <h4 class="font-bold text-xl">BI & Visualization</h4>
-                            <p class="text-sm text-gray-400 mt-2">Power BI Desktop, DAX, Power Query (M), Data Modeling, Report Design</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Power BI Desktop, DAX, Power Query (M), Data Modeling, Report Design</p>
                         </div>
                         <div class="card-bg rounded-lg p-6 text-center slide-in-up card-border-gradient" style="animation-delay: 200ms;">
                             <h4 class="font-bold text-xl">Data Sources & ETL</h4>
-                            <p class="text-sm text-gray-400 mt-2">SQL Server, T-SQL, Azure SQL, Excel, SharePoint Lists, SSIS</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">SQL Server, T-SQL, Azure SQL, Excel, SharePoint Lists, SSIS</p>
                         </div>
                         <div class="card-bg rounded-lg p-6 text-center slide-in-up card-border-gradient" style="animation-delay: 300ms;">
                             <h4 class="font-bold text-xl">Programming & Scripting</h4>
-                            <p class="text-sm text-gray-400 mt-2">Python (Pandas, Matplotlib), R for advanced analytics, PowerShell</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Python (Pandas, Matplotlib), R for advanced analytics, PowerShell</p>
                         </div>
                         <div class="card-bg rounded-lg p-6 text-center slide-in-up card-border-gradient" style="animation-delay: 400ms;">
                             <h4 class="font-bold text-xl">Supporting Technologies</h4>
-                            <p class="text-sm text-gray-400 mt-2">Azure (Data Factory, Synapse), Power Platform (Power Apps, Power Automate), Git</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Azure (Data Factory, Synapse), Power Platform (Power Apps, Power Automate), Git</p>
                         </div>
                     </div>
                 </section>
@@ -242,39 +263,8 @@
             <div id="projects-page" class="page">
                 <section class="py-16 px-4 md:px-10 lg:px-20">
                     <h3 class="text-3xl font-bold mb-10 text-center">Recent <span class="gradient-text">Projects</span></h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <div class="project-card-container slide-in-up" style="animation-delay: 100ms;">
-                            <div class="project-card group cursor-pointer" data-project-title="Sales Performance Dashboard">
-                                <div class="card-bg rounded-lg overflow-hidden card-border-gradient">
-                                    <img src="https://placehold.co/600x400/1d4ed8/ffffff?text=Sales+Dashboard" alt="Project 1" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
-                                </div>
-                                <h4 class="font-semibold mt-3">Sales Performance Dashboard</h4>
-                            </div>
-                        </div>
-                         <div class="project-card-container slide-in-up" style="animation-delay: 200ms;">
-                            <div class="project-card group cursor-pointer" data-project-title="Financial Reporting Automation">
-                                <div class="card-bg rounded-lg overflow-hidden card-border-gradient">
-                                    <img src="https://placehold.co/600x400/be123c/ffffff?text=Financial+Reporting" alt="Project 2" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
-                                </div>
-                                <h4 class="font-semibold mt-3">Financial Reporting Automation</h4>
-                            </div>
-                        </div>
-                         <div class="project-card-container slide-in-up" style="animation-delay: 300ms;">
-                            <div class="project-card group cursor-pointer" data-project-title="HR Analytics Dashboard">
-                                <div class="card-bg rounded-lg overflow-hidden card-border-gradient">
-                                    <img src="https://placehold.co/600x400/059669/ffffff?text=HR+Analytics" alt="Project 3" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
-                                </div>
-                                <h4 class="font-semibold mt-3">HR Analytics Dashboard</h4>
-                            </div>
-                        </div>
-                         <div class="project-card-container slide-in-up" style="animation-delay: 400ms;">
-                            <div class="project-card group cursor-pointer" data-project-title="Inventory Management Insights">
-                                <div class="card-bg rounded-lg overflow-hidden card-border-gradient">
-                                    <img src="https://placehold.co/600x400/d97706/ffffff?text=Inventory+Insights" alt="Project 4" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
-                                </div>
-                                <h4 class="font-semibold mt-3">Inventory Management Insights</h4>
-                            </div>
-                        </div>
+                    <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Projects will be dynamically inserted here -->
                     </div>
                 </section>
             </div>
@@ -284,14 +274,14 @@
                  <section class="py-20 px-4 md:px-10 lg:px-20">
                     <div class="max-w-xl mx-auto text-center slide-in-up">
                         <h3 class="text-3xl font-bold">Get In <span class="gradient-text">Touch</span></h3>
-                        <p class="mt-4 text-gray-400">I'm currently open to new opportunities and collaborations. Feel free to send me a message.</p>
+                        <p class="mt-4 text-gray-600 dark:text-gray-400">I'm currently open to new opportunities and collaborations. Feel free to send me a message.</p>
                         <a href="mailto:your.email@example.com" class="mt-8 inline-block gradient-button text-white font-bold py-3 px-8 rounded-full">
                             Say Hello
                         </a>
-                         <div class="flex justify-center gap-6 mt-12 text-gray-400">
-                            <a href="#" class="hover:text-white transition-colors">GitHub</a>
-                            <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
-                            <a href="#" class="hover:text-white transition-colors">Twitter</a>
+                         <div class="flex justify-center gap-6 mt-12 text-gray-500 dark:text-gray-400">
+                            <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">GitHub</a>
+                            <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">LinkedIn</a>
+                            <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">Twitter</a>
                         </div>
                     </div>
                 </section>
@@ -301,15 +291,29 @@
 
     <!-- Project Details Modal -->
     <div id="project-modal" class="fixed inset-0 z-50 items-center justify-center hidden modal-overlay">
-        <div class="bg-[#16161A] rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-1/2 max-w-4xl max-h-[90vh] flex flex-col card-border-gradient">
-            <div class="flex items-center justify-between p-4 border-b border-gray-800">
-                <h3 id="modal-title" class="text-xl font-bold gradient-text">Project Details</h3>
-                <button id="close-modal-btn" class="text-2xl font-bold leading-none text-gray-400 hover:text-white">&times;</button>
+        <div class="bg-white dark:bg-[#16161A] rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-1/2 max-w-4xl max-h-[90vh] flex flex-col card-border-gradient">
+            <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
+                <h3 id="modal-title" class="text-xl font-bold gradient-text"></h3>
+                <button id="close-modal-btn" class="text-2xl font-bold leading-none text-gray-400 hover:text-gray-800 dark:hover:text-white">&times;</button>
             </div>
-            <div id="modal-body" class="p-6 overflow-y-auto no-scrollbar">
-                 <!-- Static Content -->
+            <div class="p-6 flex-grow overflow-y-auto no-scrollbar text-gray-700 dark:text-gray-300">
+                <div class="relative mb-4">
+                    <img id="modal-image" src="" alt="Project Image" class="w-full h-auto rounded-lg">
+                    <button id="prev-image-btn" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">&lt;</button>
+                    <button id="next-image-btn" class="absolute top-1/2 right-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">&gt;</button>
+                    <button id="fullscreen-btn" class="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-full">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m0 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5h-4m0 0v-4m0 4l-5-5"></path></svg>
+                    </button>
+                </div>
+                <div id="modal-body"></div>
             </div>
         </div>
+    </div>
+    
+    <!-- Fullscreen Image Viewer -->
+    <div id="fullscreen-viewer" class="fixed inset-0 z-50 bg-black/80 items-center justify-center hidden">
+        <img id="fullscreen-image" src="" class="max-w-full max-h-full">
+        <button id="close-fullscreen-btn" class="absolute top-4 right-4 text-white text-4xl">&times;</button>
     </div>
 
     <script>
@@ -327,14 +331,115 @@
             const mobileMenu = document.getElementById('mobile-menu');
             const switchProfileBtn = document.getElementById('switch-profile-btn');
             const portfolioLogoLink = document.getElementById('portfolio-logo-link');
+            const themeToggle = document.getElementById('theme-toggle');
+            const sunIcon = document.getElementById('theme-icon-sun');
+            const moonIcon = document.getElementById('theme-icon-moon');
             
-            const projectCards = document.querySelectorAll('.project-card');
             const projectModal = document.getElementById('project-modal');
             const closeModalBtn = document.getElementById('close-modal-btn');
             const modalTitle = document.getElementById('modal-title');
             const modalBody = document.getElementById('modal-body');
-            let currentProjectTitle = '';
+            const modalImage = document.getElementById('modal-image');
+            const prevImageBtn = document.getElementById('prev-image-btn');
+            const nextImageBtn = document.getElementById('next-image-btn');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const fullscreenViewer = document.getElementById('fullscreen-viewer');
+            const fullscreenImage = document.getElementById('fullscreen-image');
+            const closeFullscreenBtn = document.getElementById('close-fullscreen-btn');
+
+            let currentProject = null;
+            let currentImageIndex = 0;
             let appStarted = false;
+
+            // --- To manually edit projects, change the data here ---
+            const projectsData = [
+                {
+                    id: 'excel-sales',
+                    title: 'Excel: Sales Dashboard',
+                    images: [
+                        'https://placehold.co/600x400/1d4ed8/ffffff?text=Excel+View+1',
+                        'https://placehold.co/600x400/3b82f6/ffffff?text=Excel+Chart+2',
+                        'https://placehold.co/600x400/60a5fa/ffffff?text=Excel+Data+3'
+                    ],
+                    description: `
+                        <div>
+                            <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Key Objectives</h3>
+                            <p>This project involved creating a dynamic sales dashboard in Excel to track KPIs and provide actionable insights for the sales team.</p>
+                        </div>
+                         <div>
+                            <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Technologies Used</h3>
+                            <p>Advanced Excel, Pivot Tables, Power Query, VBA for automation.</p>
+                        </div>
+                         <div>
+                            <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Project Impact</h3>
+                            <p>Enabled real-time sales tracking, leading to a 15% improvement in sales performance and forecasting accuracy.</p>
+                        </div>
+                    `
+                },
+                {
+                    id: 'powerbi-games',
+                    title: 'PowerBI: Video Games Sales',
+                    images: [
+                        'https://placehold.co/600x400/be123c/ffffff?text=PowerBI+Overview',
+                        'https://placehold.co/600x400/9f1239/ffffff?text=PowerBI+Details'
+                    ],
+                    description: `
+                        <div>
+                            <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Key Objectives</h3>
+                            <p>Developed an interactive Power BI dashboard to analyze global video game sales trends across different platforms and genres.</p>
+                        </div>
+                         <div>
+                            <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Technologies Used</h3>
+                            <p>Power BI, DAX for complex calculations, Power Query for data transformation, SQL for data extraction.</p>
+                        </div>
+                         <div>
+                            <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Project Impact</h3>
+                            <p>Provided key insights into market trends, helping stakeholders identify new opportunities and optimize marketing strategies.</p>
+                        </div>
+                    `
+                }
+            ];
+
+            // --- Render Projects ---
+            const projectsGrid = document.getElementById('projects-grid');
+            projectsData.forEach((project, index) => {
+                const projectEl = document.createElement('div');
+                projectEl.className = 'project-card-container slide-in-up';
+                projectEl.style.animationDelay = `${100 * (index + 1)}ms`;
+                projectEl.innerHTML = `
+                    <div class="project-card group cursor-pointer" data-project-id="${project.id}">
+                        <div class="card-bg rounded-lg overflow-hidden card-border-gradient">
+                            <img src="${project.images[0]}" alt="${project.title}" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h4 class="font-semibold mt-3 text-gray-900 dark:text-white">${project.title}</h4>
+                    </div>
+                `;
+                projectsGrid.appendChild(projectEl);
+            });
+            
+             // --- Theme Toggle ---
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.remove('light');
+                    sunIcon.style.display = 'block';
+                    moonIcon.style.display = 'none';
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(savedTheme);
+
+            themeToggle.addEventListener('click', () => {
+                const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
             
             // --- Splash Screen and Sound ---
             const playTudum = async () => {
@@ -357,7 +462,7 @@
                         profilesScreen.style.display = 'flex';
                         profilesScreen.classList.add('fade-in');
                     }, 500);
-                }, 1500); // Faster transition
+                }, 1500);
             };
             
             netflixSplash.addEventListener('click', startApp);
@@ -431,35 +536,52 @@
             });
 
             // --- Project Modal Logic ---
-            const openModal = (projectTitle) => {
-                currentProjectTitle = projectTitle;
-                modalTitle.textContent = projectTitle;
-                modalBody.innerHTML = `
-                    <div>
-                        <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Key Objectives</h3>
-                        <p>This project aimed to deliver actionable insights by developing a comprehensive dashboard to track key performance indicators.</p>
-                    </div>
-                     <div>
-                        <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Technologies Used</h3>
-                        <p>Power BI, DAX, SQL, Power Query, and Azure services were utilized to build and deploy this solution.</p>
-                    </div>
-                     <div>
-                        <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Project Impact</h3>
-                        <p>The resulting dashboard led to a significant improvement in data-driven decision-making and operational efficiency.</p>
-                    </div>
-                `;
+            const updateModalImage = () => {
+                modalImage.src = currentProject.images[currentImageIndex];
+                fullscreenImage.src = currentProject.images[currentImageIndex];
+            };
+
+            const openModal = (projectId) => {
+                currentProject = projectsData.find(p => p.id === projectId);
+                if (!currentProject) return;
+                
+                currentImageIndex = 0;
+                modalTitle.textContent = currentProject.title;
+                modalBody.innerHTML = currentProject.description;
+                updateModalImage();
                 projectModal.style.display = 'flex';
             };
 
             const closeModal = () => projectModal.style.display = 'none';
-
-            projectCards.forEach(card => {
-                card.addEventListener('click', () => openModal(card.dataset.projectTitle));
+            
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const projectId = e.currentTarget.dataset.projectId;
+                    openModal(projectId);
+                });
             });
 
             closeModalBtn.addEventListener('click', closeModal);
             projectModal.addEventListener('click', (e) => {
                 if (e.target === projectModal) closeModal();
+            });
+
+            nextImageBtn.addEventListener('click', () => {
+                currentImageIndex = (currentImageIndex + 1) % currentProject.images.length;
+                updateModalImage();
+            });
+
+            prevImageBtn.addEventListener('click', () => {
+                currentImageIndex = (currentImageIndex - 1 + currentProject.images.length) % currentProject.images.length;
+                updateModalImage();
+            });
+
+            fullscreenBtn.addEventListener('click', () => {
+                fullscreenViewer.style.display = 'flex';
+            });
+
+            closeFullscreenBtn.addEventListener('click', () => {
+                fullscreenViewer.style.display = 'none';
             });
         });
     </script>
