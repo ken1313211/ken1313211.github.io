@@ -177,11 +177,11 @@
                 </div>
                 <div class="flex items-center gap-4">
                     <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                        <svg id="theme-icon-sun" class="h-5 w-5 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                        <svg id="theme-icon-moon" class="h-5 w-5 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                        <svg id="theme-icon-sun" class="h-5 w-5 text-gray-500 dark:text-gray-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        <svg id="theme-icon-moon" class="h-5 w-5 text-gray-500 dark:text-gray-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
                     </button>
                     <button id="switch-profile-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" title="Switch Profile">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-800 dark:text-gray-200" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 dark:text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                         </svg>
                     </button>
@@ -467,8 +467,16 @@
                 }, 1000);
             };
             
-            netflixSplash.addEventListener('click', startApp);
-            setTimeout(startApp, 500);
+            if (localStorage.getItem('hasVisited')) {
+                netflixSplash.style.display = 'none';
+                profilesScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                mainContent.style.opacity = '1';
+                showPage('#home');
+            } else {
+                netflixSplash.addEventListener('click', startApp);
+                setTimeout(startApp, 500);
+            }
 
             // --- Mobile Menu ---
             const toggleMobileMenu = () => {
@@ -517,6 +525,7 @@
             profileCards.forEach((card, index) => {
                 card.style.animationDelay = `${index * 100 + 100}ms`;
                 card.addEventListener('click', () => {
+                    localStorage.setItem('hasVisited', 'true');
                     profilesScreen.style.opacity = '0';
                     setTimeout(() => {
                         profilesScreen.style.display = 'none';
