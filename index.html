@@ -155,9 +155,10 @@
 </head>
 <body>
 
-    <div id="netflix-splash" class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 p-4">
+    <div id="netflix-splash" class="fixed inset-0 z-50 flex flex-col items-center justify-center transition-opacity duration-500 p-4">
         <div id="splash-text-container" class="text-3xl md:text-6xl font-bold text-center tracking-widest">
         </div>
+        <p class="absolute bottom-[20%] text-gray-400 text-sm md:text-base animate-pulse">Click anywhere to enter</p>
     </div>
 
     <div id="profiles-screen" class="fixed inset-0 z-40 flex-col items-center justify-center transition-opacity duration-500 hidden bg-[#141414]">
@@ -298,17 +299,17 @@
                     <p class="mt-4 text-gray-600 dark:text-gray-400">I'm currently open to new opportunities and collaborations. Feel free to send me a message.</p>
                     <a href="mailto:your.email@example.com" class="mt-8 inline-block gradient-button text-white font-bold py-3 px-8 rounded-full">Say Hello</a>
                      <div class="flex justify-center gap-6 mt-12 text-gray-500 dark:text-gray-400">
-                        <a href="#" class="hover:text-white transition-colors">GitHub</a>
-                        <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
-                        <a href="#" class="hover:text-white transition-colors">Twitter</a>
-                    </div>
+                         <a href="#" class="hover:text-white transition-colors">GitHub</a>
+                         <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+                         <a href="#" class="hover:text-white transition-colors">Twitter</a>
+                     </div>
                 </section>
             </div>
         </main>
     </div>
 
-    <div id="project-modal" class="fixed inset-0 z-50 items-center justify-center hidden modal-overlay"><div class="bg-white dark:bg-[#16161A] rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-1/2 max-w-4xl max-h-[90vh] flex flex-col card-border-gradient"><div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800"><h3 id="modal-title" class="text-xl font-bold gradient-text"></h3><button id="close-modal-btn" class="text-2xl font-bold leading-none text-gray-400 hover:text-white">&times;</button></div><div class="p-6 flex-grow overflow-y-auto no-scrollbar text-gray-700 dark:text-gray-200 min-w-0"><div class="relative mb-4"><img id="modal-image" src="" alt="Project Image" class="w-full h-auto rounded-lg"><button id="prev-image-btn" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">&lt;</button><button id="next-image-btn" class="absolute top-1/2 right-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">&gt;</button><button id="fullscreen-btn" class="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m0 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5h-4m0 0v-4m0 4l-5-5"></path></svg></button></div><div id="modal-body"></div></div></div></div>
-    <div id="fullscreen-viewer" class="fixed inset-0 z-50 bg-black/80 items-center justify-center hidden"><img id="fullscreen-image" src="" class="max-w-full max-h-full"><button id="close-fullscreen-btn" class="absolute top-4 right-4 text-white text-4xl">&times;</button></div>
+    <div id="project-modal" class="fixed inset-0 z-50 items-center justify-center hidden modal-overlay"><div class="bg-white dark:bg-[#16161A] rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-1/2 max-w-4xl max-h-[90vh] flex flex-col card-border-gradient"><div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800"><h3 id="modal-title" class="text-xl font-bold gradient-text"></h3><button id="close-modal-btn" class="text-2xl font-bold leading-none text-gray-400 hover:text-white">&times;</button></div><div class="p-6 flex-grow overflow-y-auto no-scrollbar text-gray-700 dark:text-gray-200 min-w-0"><div class="relative mb-4"><img id="modal-image" src="" alt="Project Image" class="w-full h-auto rounded-lg"><button id="prev-image-btn" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hidden">&lt;</button><button id="next-image-btn" class="absolute top-1/2 right-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hidden">&gt;</button><button id="fullscreen-btn" class="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m0 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5h-4m0 0v-4m0 4l-5-5"></path></svg></button></div><div id="modal-body"></div></div></div></div>
+    <div id="fullscreen-viewer" class="fixed inset-0 z-[60] bg-black/90 items-center justify-center hidden"><img id="fullscreen-image" src="" class="max-w-full max-h-full object-contain"><button id="close-fullscreen-btn" class="absolute top-4 right-4 text-white text-4xl">&times;</button></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -333,7 +334,7 @@
                 { 
                     id: 'excel-sales', 
                     title: 'Excel: Sales Dashboard', 
-                    images: ['https://placehold.co/600x400/1d4ed8/ffffff?text=Excel+View+1', 'https://placehold.co/600x400/3b82f6/ffffff?text=Excel+Chart+2'], 
+                    images: ['http://googleusercontent.com/file_content/0', 'https://placehold.co/600x400/3b82f6/ffffff?text=Excel+Chart+2'], 
                     description: `
                         <div class="space-y-4">
                             <div>
@@ -400,7 +401,9 @@
             
             const playTudum = async () => {
                 try {
-                    await Tone.start();
+                    if (Tone.context.state !== 'running') {
+                       await Tone.start();
+                    }
                     const synth = new Tone.MembraneSynth().toDestination();
                     const now = Tone.now();
                     synth.triggerAttack("C1", now);
@@ -414,6 +417,10 @@
                 appStarted = true;
                 playTudum();
                 netflixSplash.style.opacity = '0';
+                
+                const prompt = netflixSplash.querySelector('p');
+                if (prompt) prompt.style.display = 'none';
+
                 setTimeout(() => {
                     netflixSplash.style.display = 'none';
                     profilesScreen.style.display = 'flex';
@@ -421,8 +428,8 @@
                 }, 500);
             };
             
-            const animationDuration = (splashText.length * 0.05 + 1.2) * 1000;
-            setTimeout(startApp, animationDuration);
+            // FIX: Call startApp on user click to enable audio, instead of a timeout.
+            netflixSplash.addEventListener('click', startApp, { once: true });
 
             const showPage = (targetId) => {
                 const pageId = `${targetId.substring(1)}-page`;
@@ -443,7 +450,7 @@
                 window.scrollTo(0, 0);
             };
 
-            document.querySelectorAll('.nav-link, .nav-button, #portfolio-logo-link').forEach(link => {
+            document.querySelectorAll('.nav-link, .nav-button, #portfolio-logo-link, .mobile-nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     const targetId = link.dataset.target || link.getAttribute('href');
@@ -463,7 +470,6 @@
                         profilesScreen.style.display = 'none';
                         mainContent.style.display = 'block';
                         mainHeader.style.display = 'flex';
-                        mainContent.classList.add('slide-in-up');
                         setTimeout(() => mainContent.style.opacity = '1', 50);
                         showPage('#home');
                     }, 500);
@@ -492,24 +498,77 @@
                 }
             });
 
-            // Modal Logic
+            // --- START: MODAL FIX ---
+            let currentProject = null;
+            let currentImageIndex = 0;
+
             const projectModal = document.getElementById('project-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const modalImage = document.getElementById('modal-image');
+            const prevImageBtn = document.getElementById('prev-image-btn');
+            const nextImageBtn = document.getElementById('next-image-btn');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            
+            const fullscreenViewer = document.getElementById('fullscreen-viewer');
+            const fullscreenImage = document.getElementById('fullscreen-image');
+            const closeFullscreenBtn = document.getElementById('close-fullscreen-btn');
+
+            const updateModalImage = () => {
+                if (!currentProject) return;
+                const images = currentProject.images;
+                modalImage.src = images[currentImageIndex];
+                
+                const showNavButtons = images.length > 1;
+                prevImageBtn.style.display = showNavButtons ? 'block' : 'none';
+                nextImageBtn.style.display = showNavButtons ? 'block' : 'none';
+            };
+
             document.querySelectorAll('.project-card').forEach(card => {
                 card.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     const projectId = e.currentTarget.dataset.projectId;
-                    const project = projectsData.find(p => p.id === projectId);
-                    if (!project) return;
+                    currentProject = projectsData.find(p => p.id === projectId);
+                    if (!currentProject) return;
                     
-                    document.getElementById('modal-title').textContent = project.title;
-                    document.getElementById('modal-body').innerHTML = project.description;
-                    document.getElementById('modal-image').src = project.images[0];
+                    currentImageIndex = 0;
+                    modalTitle.textContent = currentProject.title;
+                    modalBody.innerHTML = currentProject.description;
+                    updateModalImage();
+                    
                     projectModal.style.display = 'flex';
                 });
             });
-            document.getElementById('close-modal-btn').addEventListener('click', () => projectModal.style.display = 'none');
-            projectModal.addEventListener('click', (e) => { if (e.target === projectModal) projectModal.style.display = 'none'; });
+
+            closeModalBtn.addEventListener('click', () => projectModal.style.display = 'none');
+            projectModal.addEventListener('click', (e) => {
+                if (e.target === projectModal) projectModal.style.display = 'none';
+            });
+
+            nextImageBtn.addEventListener('click', () => {
+                if (!currentProject) return;
+                currentImageIndex = (currentImageIndex + 1) % currentProject.images.length;
+                updateModalImage();
+            });
+
+            prevImageBtn.addEventListener('click', () => {
+                if (!currentProject) return;
+                currentImageIndex = (currentImageIndex - 1 + currentProject.images.length) % currentProject.images.length;
+                updateModalImage();
+            });
+
+            fullscreenBtn.addEventListener('click', () => {
+                 if (!currentProject) return;
+                 fullscreenImage.src = currentProject.images[currentImageIndex];
+                 fullscreenViewer.style.display = 'flex';
+            });
+            
+            closeFullscreenBtn.addEventListener('click', () => {
+                 fullscreenViewer.style.display = 'none';
+            });
+            // --- END: MODAL FIX ---
         });
     </script>
 </body>
