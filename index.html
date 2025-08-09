@@ -226,12 +226,12 @@
                         <h2 class="text-4xl md:text-6xl font-black uppercase tracking-wider text-white">Hi, I'm a Power BI Developer</h2>
                         <p class="mt-4 text-lg text-gray-200 dark:text-gray-300">Welcome to my portfolio. I specialize in transforming data into compelling stories and actionable insights that drive business decisions.</p>
                         <div class="mt-8 flex gap-4">
-                            <button data-target="#projects" class="nav-button gradient-button text-white font-bold py-3 px-8 rounded-full flex items-center gap-2">
+                            <a href="#projects" class="nav-button gradient-button text-white font-bold py-3 px-8 rounded-full flex items-center gap-2">
                                 My Work
-                            </button>
-                            <button data-target="#contact" class="nav-button bg-gray-100/20 dark:bg-gray-700/50 text-white font-bold py-3 px-8 rounded-full flex items-center gap-2 hover:bg-gray-100/30 dark:hover:bg-gray-700/80 transition-colors">
+                            </a>
+                            <a href="#contact" class="nav-button bg-gray-100/20 dark:bg-gray-700/50 text-white font-bold py-3 px-8 rounded-full flex items-center gap-2 hover:bg-gray-100/30 dark:hover:bg-gray-700/80 transition-colors">
                                 Contact Info
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -469,12 +469,16 @@
                 }, 1000);
             };
             
-            if (localStorage.getItem('hasVisited')) {
+            const skipIntro = () => {
                 netflixSplash.style.display = 'none';
                 profilesScreen.style.display = 'none';
                 mainContent.style.display = 'block';
                 mainContent.style.opacity = '1';
-                showPage('#home');
+                showPage(window.location.hash || '#home');
+            };
+
+            if (localStorage.getItem('hasVisited')) {
+                skipIntro();
             } else {
                 netflixSplash.addEventListener('click', startApp);
                 setTimeout(startApp, 500);
@@ -490,6 +494,7 @@
 
             // --- Page Navigation Logic ---
             const showPage = (targetId) => {
+                window.location.hash = targetId;
                 const pageId = targetId.substring(1);
                 pages.forEach(page => page.classList.remove('active'));
                 const activePage = document.getElementById(`${pageId}-page`);
@@ -503,25 +508,22 @@
                 });
             };
 
-            const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+            const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link, .nav-button, #portfolio-logo-link');
             allNavLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    showPage(link.getAttribute('href'));
+                    const targetId = link.dataset.target || link.getAttribute('href');
+                    showPage(targetId);
                     if (mobileMenu.classList.contains('open')) {
                         toggleMobileMenu();
                     }
                 });
             });
             
-            portfolioLogoLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                showPage('#home');
+            window.addEventListener('hashchange', () => {
+                showPage(window.location.hash || '#home');
             });
-            
-            navButtons.forEach(button => {
-                button.addEventListener('click', () => showPage(button.dataset.target));
-            });
+
 
             // --- Profile Selection Logic ---
             profileCards.forEach((card, index) => {
