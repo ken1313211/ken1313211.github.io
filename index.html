@@ -8,25 +8,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #F0F2F5;
             --text-color: #1A1A1A;
             --card-bg: #FFFFFF;
             --text-muted: #4a5568;
-            --header-bg: rgba(255, 255, 255, 0.8);
+            --header-bg-transparent: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, rgba(0,0,0,0) 100%);
         }
 
         html.dark {
-            --bg-color: #0B0B0F;
+            --bg-color: #141414; /* Darker Netflix background */
             --text-color: #E0E0E0;
             --card-bg: #16161A;
             --text-muted: #a0aec0;
-            --header-bg: rgba(11, 11, 15, 0.8);
+            --header-bg: #141414;
         }
 
-        /* --- Horizontal Scroll Fix --- */
         html, body {
             width: 100%;
             overflow-x: hidden;
@@ -41,25 +40,15 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* --- Animations --- */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-        @keyframes slideInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
         .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
         .fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
         .slide-in-up { animation: slideInUp 0.6s ease-out forwards; }
         .profile-card { opacity: 0; animation: slideInUp 0.5s ease-out forwards; }
         
-        /* --- Gradients & Colors --- */
         .gradient-text {
             background: linear-gradient(90deg, #4F46E5, #A855F7, #EC4899);
             -webkit-background-clip: text;
@@ -76,17 +65,31 @@
         }
         .nav-link.active {
             font-weight: 700;
-            background: linear-gradient(90deg, #A855F7, #EC4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        }
+        html.dark .nav-link.active {
+             color: white;
         }
 
-        /* --- Page Layout & Tile Styling --- */
         .page { display: none; animation: fadeIn 0.4s ease-in-out; }
         .page.active { display: block; }
+
         .hero-gradient-bottom {
-            background-image: linear-gradient(to top, var(--bg-color) 10%, rgba(11, 11, 15, 0) 100%);
+            background-image: linear-gradient(to top, var(--bg-color) 10%, rgba(0,0,0,0) 100%);
         }
+        
+        #main-header {
+            transition: background-color 0.4s ease-out;
+        }
+        #main-header.header-gradient {
+            background-image: var(--header-bg-transparent);
+            background-color: transparent;
+        }
+        #main-header.scrolled {
+            background-color: var(--header-bg);
+            background-image: none;
+        }
+
+
         .card-bg { background-color: var(--card-bg); }
         .card-border-gradient {
             border: 1px solid transparent;
@@ -98,27 +101,26 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        /* --- Netflix Splash Screen --- */
         #netflix-splash {
-            background-color: #000;
+            background-color: #141414;
             cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif;
         }
-        .k-logo {
-            width: 150px;
-            height: 250px;
+        .splash-title-char {
+            display: inline-block;
+            opacity: 0;
+            transform: scale(3);
+            color: #E50914;
+            animation: netflix-intro 0.4s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+            text-shadow: 0 0 5px rgba(0,0,0,0.4), 0 0 15px rgba(229,9,20,0.5);
         }
-        .k-logo path {
-            stroke-dasharray: 550;
-            stroke-dashoffset: 550;
-            animation: draw 1.2s ease-in-out forwards;
-        }
-        @keyframes draw {
+        @keyframes netflix-intro {
             to {
-                stroke-dashoffset: 0;
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
-        /* --- Mobile Menu Animation --- */
         #mobile-menu {
             transform: translateX(100%);
             visibility: hidden;
@@ -132,80 +134,72 @@
             transition: all 0.3s ease-in-out;
             transform-origin: center;
         }
-        #mobile-menu-button.open .hamburger-top {
-            transform: translate(1px, 2px) rotate(45deg) scaleX(0.8);
-        }
-        #mobile-menu-button.open .hamburger-middle {
-            transform: rotate(90deg) scaleY(1.2);
-        }
-        #mobile-menu-button.open .hamburger-bottom {
-            transform: translate(1px, -2px) rotate(-45deg) scaleX(0.8);
-        }
+        #mobile-menu-button.open .hamburger-top { transform: translate(1px, 2px) rotate(45deg) scaleX(0.8); }
+        #mobile-menu-button.open .hamburger-middle { transform: rotate(90deg) scaleY(1.2); }
+        #mobile-menu-button.open .hamburger-bottom { transform: translate(1px, -2px) rotate(-45deg) scaleX(0.8); }
 
-        /* --- Modal Overlay Style --- */
         .modal-overlay {
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
+        }
+        
+        .top-pick-card {
+            aspect-ratio: 16/9;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .top-pick-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
     </style>
 </head>
 <body>
 
-    <!-- Netflix Splash Screen -->
-    <div id="netflix-splash" class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500">
-        <svg class="k-logo" viewBox="0 0 140 230">
-            <defs>
-                <linearGradient id="k-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style="stop-color:#E50914;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#B20710;stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            <path d="M 20 0 L 20 230 M 120 0 L 40 115 L 120 230" 
-                  stroke="url(#k-gradient)" stroke-width="12" fill="none"/>
-        </svg>
+    <div id="netflix-splash" class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 p-4">
+        <div id="splash-text-container" class="text-3xl md:text-6xl font-bold text-center tracking-widest">
+        </div>
     </div>
 
-    <!-- Who's Watching Screen -->
-    <div id="profiles-screen" class="fixed inset-0 z-40 flex-col items-center justify-center transition-opacity duration-500 hidden">
-        <h1 class="text-3xl md:text-5xl font-semibold mb-8">Who's watching</h1>
+    <div id="profiles-screen" class="fixed inset-0 z-40 flex-col items-center justify-center transition-opacity duration-500 hidden bg-[#141414]">
+        <h1 class="text-3xl md:text-5xl font-semibold mb-8 text-white">Who's watching?</h1>
         <div class="flex flex-wrap justify-center gap-4 md:gap-8">
-            <!-- Added data-img-src to easily grab the image URL -->
-            <div class="profile-card text-center cursor-pointer group" data-img-src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
-                <div class="w-24 h-24 md:w-32 md:h-32 rounded-md overflow-hidden border-2 border-transparent group-hover:border-pink-500 transition-all duration-200">
+            <div class="profile-card text-center cursor-pointer group" data-img-src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" data-name="Recruiter">
+                <div class="w-24 h-24 md:w-32 md:h-32 rounded-md overflow-hidden border-2 border-transparent group-hover:border-white transition-all duration-200">
                     <img src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" onerror="this.onerror=null;this.src='https://placehold.co/150x150/EC4899/FFFFFF?text=R';" alt="Hiring Manager" class="w-full h-full object-cover">
                 </div>
-                <p class="mt-2 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-200">Recruiter</p>
+                <p class="mt-2 text-gray-400 group-hover:text-white transition-colors duration-200">Recruiter</p>
+            </div>
+            <div class="profile-card text-center cursor-pointer group" data-img-src="https://placehold.co/150x150/1d4ed8/ffffff?text=F" data-name="Friends">
+                <div class="w-24 h-24 md:w-32 md:h-32 rounded-md overflow-hidden border-2 border-transparent group-hover:border-white transition-all duration-200">
+                    <img src="https://placehold.co/150x150/1d4ed8/ffffff?text=F" onerror="this.onerror=null;this.src='https://placehold.co/150x150/1d4ed8/FFFFFF?text=F';" alt="Friends" class="w-full h-full object-cover">
+                </div>
+                <p class="mt-2 text-gray-400 group-hover:text-white transition-colors duration-200">Friends</p>
             </div>
         </div>
     </div>
 
-    <!-- Main Portfolio Content -->
     <div id="main-content" class="hidden opacity-0 transition-opacity duration-500">
-        <!-- Header now has padding and flex properties directly, no more inner container -->
-        <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-10 py-4 backdrop-blur-sm shadow-sm dark:shadow-none flex items-center justify-between" style="background-color: var(--header-bg)">
+        <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-10 py-4 flex items-center justify-between header-gradient">
             <div class="flex items-center gap-8">
-                <a href="#home" id="portfolio-logo-link" class="cursor-pointer">
-                    <h1 class="text-2xl md:text-3xl font-bold gradient-text">PORTFOLIO</h1>
-                </a>
-                <nav id="main-nav" class="hidden md:flex items-center gap-5">
-                    <a href="#home" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Home</a>
-                    <a href="#skills" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Skills</a>
-                    <a href="#projects" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Projects</a>
-                    <a href="#contact" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Contact</a>
+                <a href="#home" id="portfolio-logo-link" class="cursor-pointer text-red-600 text-3xl font-bold tracking-wider" style="font-family: 'Bebas Neue', sans-serif;">PORTFOLIO</a>
+                <nav id="main-nav" class="hidden md:flex items-center gap-6">
+                    <a href="#home" class="nav-link text-sm text-gray-200 hover:text-gray-400 transition-colors">Home</a>
+                    <a href="#skills" class="nav-link text-sm text-gray-200 hover:text-gray-400 transition-colors">Skills</a>
+                    <a href="#projects" class="nav-link text-sm text-gray-200 hover:text-gray-400 transition-colors">Projects</a>
+                    <a href="#certifications" class="nav-link text-sm text-gray-200 hover:text-gray-400 transition-colors">Certifications</a>
+                    <a href="#contact" class="nav-link text-sm text-gray-200 hover:text-gray-400 transition-colors">Contact</a>
                 </nav>
             </div>
             <div class="flex items-center gap-4">
-                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                    <svg id="theme-icon-sun" class="h-5 w-5 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                    <svg id="theme-icon-moon" class="h-5 w-5 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-600/50 transition-colors">
+                    <svg id="theme-icon-sun" class="h-5 w-5 text-gray-100 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                    <svg id="theme-icon-moon" class="h-5 w-5 text-gray-100 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
                 </button>
-                <!-- This is the new profile icon that replaces the SVG button -->
                 <div id="nav-profile-icon" class="w-8 h-8 md:w-10 md:h-10 rounded-md overflow-hidden cursor-pointer hidden">
                     <img id="nav-profile-img" src="" alt="User Profile" class="w-full h-full object-cover">
                 </div>
-                <!-- Mobile Menu Button -->
                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="p-2 rounded-md text-gray-300 hover:text-white z-50 relative h-8 w-8">
+                    <button id="mobile-menu-button" class="p-2 rounded-md text-white z-50 relative h-8 w-8">
                        <svg class="h-full w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path class="hamburger-bar hamburger-top" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16" />
                             <path class="hamburger-bar hamburger-middle" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16" />
@@ -216,267 +210,170 @@
             </div>
         </header>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden fixed top-0 right-0 h-full w-full z-30 flex flex-col items-center justify-center" style="background-color: var(--bg-color);">
+        <div id="mobile-menu" class="md:hidden fixed top-0 right-0 h-full w-full z-30 flex flex-col items-center justify-center bg-[#141414]">
             <nav class="flex flex-col items-center gap-8">
-                <a href="#home" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
-                <a href="#skills" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Skills</a>
-                <a href="#projects" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Projects</a>
-                <a href="#contact" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
+                <a href="#home" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Home</a>
+                <a href="#skills" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Skills</a>
+                <a href="#projects" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Projects</a>
+                 <a href="#certifications" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Certifications</a>
+                <a href="#contact" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Contact</a>
             </nav>
         </div>
 
         <main class="pt-20">
-            <!-- Home Page -->
             <div id="home-page" class="page">
-                <section class="relative h-[calc(100vh-5rem)] flex items-center justify-start">
+                <section class="relative h-screen flex items-center justify-start -mt-20">
                     <div class="absolute inset-0">
                         <img src="https://media.giphy.com/media/yHI4yDBgzBvA4/giphy.gif" 
                              onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/000000/FFFFFF?text=Movie+Scene';"
                              alt="Hero Background" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black opacity-60"></div>
-                        <div class="absolute bottom-0 left-0 right-0 h-40 hero-gradient-bottom"></div>
+                        <div class="absolute bottom-0 left-0 right-0 h-56 hero-gradient-bottom"></div>
                     </div>
                     <div class="relative z-10 px-4 md:px-10 lg:px-20 max-w-2xl slide-in-up">
-                        <h2 class="text-4xl md:text-6xl font-black uppercase tracking-wider text-white">Hi, I'm a Power BI Developer</h2>
-                        <p class="mt-4 text-lg text-gray-200 dark:text-gray-300">Welcome to my portfolio. I specialize in transforming data into compelling stories and actionable insights that drive business decisions.</p>
+                        <h2 class="text-4xl md:text-6xl font-black uppercase tracking-wider text-white">Power BI Developer</h2>
+                        <p class="mt-4 text-lg text-gray-200">Welcome to my portfolio. I specialize in transforming data into compelling stories and actionable insights that drive business decisions.</p>
                         <div class="mt-8 flex gap-4">
-                            <button data-target="#projects" class="nav-button gradient-button text-white font-bold py-3 px-8 rounded-full flex items-center gap-2">
+                            <button data-target="#projects" class="nav-button bg-white text-black font-bold py-2 px-6 rounded flex items-center gap-2 hover:bg-gray-200 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg>
                                 My Work
                             </button>
-                            <button data-target="#contact" class="nav-button bg-gray-100/20 dark:bg-gray-700/50 text-white font-bold py-3 px-8 rounded-full flex items-center gap-2 hover:bg-gray-100/30 dark:hover:bg-gray-700/80 transition-colors">
+                            <button data-target="#contact" class="nav-button bg-gray-500/70 text-white font-bold py-2 px-6 rounded flex items-center gap-2 hover:bg-gray-500/90 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" /></svg>
                                 Contact Info
                             </button>
                         </div>
                     </div>
                 </section>
-            </div>
-
-            <!-- Skills Page -->
-            <div id="skills-page" class="page">
-                <section class="py-16 px-4 md:px-10 lg:px-20">
-                    <h3 class="text-3xl font-bold mb-10 text-center">My <span class="gradient-text">Tech Stack</span></h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <!-- Skill cards are now larger and more elegant -->
-                        <div class="card-bg rounded-lg p-8 text-center slide-in-up card-border-gradient" style="animation-delay: 100ms;">
-                            <h4 class="font-bold text-xl mb-2">BI & Visualization</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Power BI Desktop, DAX, Power Query (M), Data Modeling, Report Design</p>
-                        </div>
-                        <div class="card-bg rounded-lg p-8 text-center slide-in-up card-border-gradient" style="animation-delay: 200ms;">
-                            <h4 class="font-bold text-xl mb-2">Data Sources & ETL</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">SQL Server, T-SQL, Azure SQL, Excel, SharePoint Lists, SSIS</p>
-                        </div>
-                        <div class="card-bg rounded-lg p-8 text-center slide-in-up card-border-gradient" style="animation-delay: 300ms;">
-                            <h4 class="font-bold text-xl mb-2">Programming & Scripting</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Python (Pandas, Matplotlib), R for advanced analytics, PowerShell</p>
-                        </div>
-                        <div class="card-bg rounded-lg p-8 text-center slide-in-up card-border-gradient" style="animation-delay: 400ms;">
-                            <h4 class="font-bold text-xl mb-2">Supporting Technologies</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Azure (Data Factory, Synapse), Power Platform (Power Apps, Power Automate), Git</p>
-                        </div>
+                <section id="top-picks" class="py-10 px-4 md:px-10 lg:px-20 -mt-40 relative z-20">
+                    <h3 id="top-picks-title" class="text-xl md:text-2xl font-bold mb-4 text-white"></h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <a href="#skills" class="nav-link top-pick-card rounded-lg overflow-hidden relative group bg-zinc-800 flex items-center justify-center">
+                            <img src="https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="absolute w-full h-full object-cover opacity-40 group-hover:opacity-20 transition-opacity"/>
+                            <h4 class="text-white font-bold text-2xl z-10">Skills</h4>
+                        </a>
+                        <a href="#projects" class="nav-link top-pick-card rounded-lg overflow-hidden relative group bg-zinc-800 flex items-center justify-center">
+                             <img src="https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="absolute w-full h-full object-cover opacity-40 group-hover:opacity-20 transition-opacity"/>
+                            <h4 class="text-white font-bold text-2xl z-10">Projects</h4>
+                        </a>
+                        <a href="#certifications" class="nav-link top-pick-card rounded-lg overflow-hidden relative group bg-zinc-800 flex items-center justify-center">
+                             <img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="absolute w-full h-full object-cover opacity-40 group-hover:opacity-20 transition-opacity"/>
+                            <h4 class="text-white font-bold text-2xl z-10">Certifications</h4>
+                        </a>
                     </div>
                 </section>
             </div>
 
-            <!-- Projects Page -->
-            <div id="projects-page" class="page">
-                <section class="py-16 px-4 md:px-10 lg:px-20">
-                    <h3 class="text-3xl font-bold mb-10 text-center">Recent <span class="gradient-text">Projects</span></h3>
-                    <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <!-- Projects will be dynamically inserted here -->
-                    </div>
-                </section>
+            <div id="skills-page" class="page px-4 md:px-10 lg:px-20 pb-16">
+                <h3 class="text-3xl font-bold my-10 text-center">My <span class="gradient-text">Tech Stack</span></h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="card-bg rounded-lg p-8 text-center slide-in-up card-border-gradient" style="animation-delay: 100ms;"><h4 class="font-bold text-xl mb-2">BI & Visualization</h4><p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Power BI Desktop, DAX, Power Query (M), Data Modeling, Report Design</p></div>
+                    <div class="card-bg rounded-lg p-8 text-center slide-in-up card-border-gradient" style="animation-delay: 200ms;"><h4 class="font-bold text-xl mb-2">Data Sources & ETL</h4><p class="text-sm text-gray-600 dark:text-gray-400 mt-2">SQL Server, T-SQL, Azure SQL, Excel, SharePoint Lists, SSIS</p></div>
+                    <div class="card-bg rounded-lg p-8 text-center slide-in-up card-border-gradient" style="animation-delay: 300ms;"><h4 class="font-bold text-xl mb-2">Programming & Scripting</h4><p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Python (Pandas, Matplotlib), R for advanced analytics, PowerShell</p></div>
+                    <div class="card-bg rounded-lg p-8 text-center slide-in-up card-border-gradient" style="animation-delay: 400ms;"><h4 class="font-bold text-xl mb-2">Supporting Technologies</h4><p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Azure (Data Factory, Synapse), Power Platform (Power Apps, Power Automate), Git</p></div>
+                </div>
+            </div>
+
+            <div id="projects-page" class="page px-4 md:px-10 lg:px-20 pb-16">
+                <h3 class="text-3xl font-bold my-10 text-center">Recent <span class="gradient-text">Projects</span></h3>
+                <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
             </div>
             
-            <!-- Contact Page -->
-            <div id="contact-page" class="page">
-                 <section class="py-20 px-4 md:px-10 lg:px-20">
-                    <div class="max-w-xl mx-auto text-center slide-in-up">
-                        <h3 class="text-3xl font-bold">Get In <span class="gradient-text">Touch</span></h3>
-                        <p class="mt-4 text-gray-600 dark:text-gray-400">I'm currently open to new opportunities and collaborations. Feel free to send me a message.</p>
-                        <a href="mailto:your.email@example.com" class="mt-8 inline-block gradient-button text-white font-bold py-3 px-8 rounded-full">
-                            Say Hello
-                        </a>
-                         <div class="flex justify-center gap-6 mt-12 text-gray-500 dark:text-gray-400">
-                            <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">GitHub</a>
-                            <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">LinkedIn</a>
-                            <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">Twitter</a>
+            <div id="certifications-page" class="page px-4 md:px-10 lg:px-20 pb-16">
+                <h3 class="text-3xl font-bold my-10 text-center">My <span class="gradient-text">Certifications</span></h3>
+                <div class="max-w-4xl mx-auto space-y-6">
+                    <div class="card-bg rounded-lg p-6 slide-in-up card-border-gradient flex items-center gap-6">
+                        <img src="https://placehold.co/100x100/3b82f6/ffffff?text=PL-300" alt="PL-300" class="w-24 h-24 rounded-md object-cover"/>
+                        <div>
+                            <h4 class="font-bold text-xl">Microsoft Certified: Power BI Data Analyst Associate</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Microsoft | Issued 2023</p>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="contact-page" class="page px-4 md:px-10 lg:px-20 pb-16">
+                 <section class="max-w-xl mx-auto text-center slide-in-up mt-10">
+                    <h3 class="text-3xl font-bold">Get In <span class="gradient-text">Touch</span></h3>
+                    <p class="mt-4 text-gray-600 dark:text-gray-400">I'm currently open to new opportunities and collaborations. Feel free to send me a message.</p>
+                    <a href="mailto:your.email@example.com" class="mt-8 inline-block gradient-button text-white font-bold py-3 px-8 rounded-full">Say Hello</a>
+                     <div class="flex justify-center gap-6 mt-12 text-gray-500 dark:text-gray-400">
+                        <a href="#" class="hover:text-white transition-colors">GitHub</a>
+                        <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+                        <a href="#" class="hover:text-white transition-colors">Twitter</a>
                     </div>
                 </section>
             </div>
         </main>
     </div>
 
-    <!-- Project Details Modal -->
-    <div id="project-modal" class="fixed inset-0 z-50 items-center justify-center hidden modal-overlay">
-        <div class="bg-white dark:bg-[#16161A] rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-1/2 max-w-4xl max-h-[90vh] flex flex-col card-border-gradient">
-            <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
-                <h3 id="modal-title" class="text-xl font-bold gradient-text"></h3>
-                <button id="close-modal-btn" class="text-2xl font-bold leading-none text-gray-400 hover:text-gray-800 dark:hover:text-white">&times;</button>
-            </div>
-            <div class="p-6 flex-grow overflow-y-auto no-scrollbar text-gray-700 dark:text-gray-300 min-w-0">
-                <div class="relative mb-4">
-                    <img id="modal-image" src="" alt="Project Image" class="w-full h-auto rounded-lg">
-                    <button id="prev-image-btn" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">&lt;</button>
-                    <button id="next-image-btn" class="absolute top-1/2 right-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">&gt;</button>
-                    <button id="fullscreen-btn" class="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-full">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m0 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5h-4m0 0v-4m0 4l-5-5"></path></svg>
-                    </button>
-                </div>
-                <div id="modal-body"></div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Fullscreen Image Viewer -->
-    <div id="fullscreen-viewer" class="fixed inset-0 z-50 bg-black/80 items-center justify-center hidden">
-        <img id="fullscreen-image" src="" class="max-w-full max-h-full">
-        <button id="close-fullscreen-btn" class="absolute top-4 right-4 text-white text-4xl">&times;</button>
-    </div>
+    <div id="project-modal" class="fixed inset-0 z-50 items-center justify-center hidden modal-overlay"><div class="bg-white dark:bg-[#16161A] rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-1/2 max-w-4xl max-h-[90vh] flex flex-col card-border-gradient"><div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800"><h3 id="modal-title" class="text-xl font-bold gradient-text"></h3><button id="close-modal-btn" class="text-2xl font-bold leading-none text-gray-400 hover:text-white">&times;</button></div><div class="p-6 flex-grow overflow-y-auto no-scrollbar text-gray-700 dark:text-gray-300 min-w-0"><div class="relative mb-4"><img id="modal-image" src="" alt="Project Image" class="w-full h-auto rounded-lg"><button id="prev-image-btn" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">&lt;</button><button id="next-image-btn" class="absolute top-1/2 right-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">&gt;</button><button id="fullscreen-btn" class="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m0 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5h-4m0 0v-4m0 4l-5-5"></path></svg></button></div><div id="modal-body"></div></div></div></div>
+    <div id="fullscreen-viewer" class="fixed inset-0 z-50 bg-black/80 items-center justify-center hidden"><img id="fullscreen-image" src="" class="max-w-full max-h-full"><button id="close-fullscreen-btn" class="absolute top-4 right-4 text-white text-4xl">&times;</button></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const netflixSplash = document.getElementById('netflix-splash');
             const profilesScreen = document.getElementById('profiles-screen');
             const mainContent = document.getElementById('main-content');
-            const profileCards = document.querySelectorAll('.profile-card');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-            const navButtons = document.querySelectorAll('.nav-button');
+            const mainHeader = document.getElementById('main-header');
             const pages = document.querySelectorAll('.page');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const portfolioLogoLink = document.getElementById('portfolio-logo-link');
-            const themeToggle = document.getElementById('theme-toggle');
-            const sunIcon = document.getElementById('theme-icon-sun');
-            const moonIcon = document.getElementById('theme-icon-moon');
-            
-            // New elements for the profile icon in the nav
             const navProfileIcon = document.getElementById('nav-profile-icon');
             const navProfileImg = document.getElementById('nav-profile-img');
-
-            const projectModal = document.getElementById('project-modal');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            const modalTitle = document.getElementById('modal-title');
-            const modalBody = document.getElementById('modal-body');
-            const modalImage = document.getElementById('modal-image');
-            const prevImageBtn = document.getElementById('prev-image-btn');
-            const nextImageBtn = document.getElementById('next-image-btn');
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
-            const fullscreenViewer = document.getElementById('fullscreen-viewer');
-            const fullscreenImage = document.getElementById('fullscreen-image');
-            const closeFullscreenBtn = document.getElementById('close-fullscreen-btn');
-
-            let currentProject = null;
-            let currentImageIndex = 0;
+            const topPicksTitle = document.getElementById('top-picks-title');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            
             let appStarted = false;
 
-            // --- To manually edit projects, change the data here ---
+            const splashText = "Kenneth Garcia's Portfolio";
+            const splashContainer = document.getElementById('splash-text-container');
+            splashContainer.innerHTML = splashText.split('').map((char, i) => `<span class="splash-title-char" style="animation-delay: ${i * 0.05}s">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+
             const projectsData = [
-                {
-                    id: 'excel-sales',
-                    title: 'Excel: Sales Dashboard',
-                    images: [
-                        'https://placehold.co/600x400/1d4ed8/ffffff?text=Excel+View+1',
-                        'https://placehold.co/600x400/3b82f6/ffffff?text=Excel+Chart+2',
-                        'https://placehold.co/600x400/60a5fa/ffffff?text=Excel+Data+3'
-                    ],
-                    description: `
-                        <div>
-                            <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Key Objectives</h3>
-                            <p>This project involved creating a dynamic sales dashboard in Excel to track KPIs and provide actionable insights for the sales team.</p>
-                        </div>
-                         <div>
-                            <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Technologies Used</h3>
-                            <p>Advanced Excel, Pivot Tables, Power Query, VBA for automation.</p>
-                        </div>
-                         <div>
-                            <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Project Impact</h3>
-                            <p>Enabled real-time sales tracking, leading to a 15% improvement in sales performance and forecasting accuracy.</p>
-                        </div>
-                    `
-                },
-                {
-                    id: 'powerbi-games',
-                    title: 'PowerBI: Video Games Sales',
-                    images: [
-                        'https://placehold.co/600x400/be123c/ffffff?text=PowerBI+Overview',
-                        'https://placehold.co/600x400/9f1239/ffffff?text=PowerBI+Details'
-                    ],
-                    description: `
-                        <div>
-                            <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Key Objectives</h3>
-                            <p>Developed an interactive Power BI dashboard to analyze global video game sales trends across different platforms and genres.</p>
-                        </div>
-                         <div>
-                            <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Technologies Used</h3>
-                            <p>Power BI, DAX for complex calculations, Power Query for data transformation, SQL for data extraction.</p>
-                        </div>
-                         <div>
-                            <h3 class="text-lg font-bold mt-4 mb-2 gradient-text">Project Impact</h3>
-                            <p>Provided key insights into market trends, helping stakeholders identify new opportunities and optimize marketing strategies.</p>
-                        </div>
-                    `
-                }
+                { id: 'excel-sales', title: 'Excel: Sales Dashboard', images: ['https://placehold.co/600x400/1d4ed8/ffffff?text=Excel+View+1', 'https://placehold.co/600x400/3b82f6/ffffff?text=Excel+Chart+2'], description: `<div>...</div>` },
+                { id: 'powerbi-games', title: 'PowerBI: Video Games Sales', images: ['https://placehold.co/600x400/be123c/ffffff?text=PowerBI+Overview', 'https://placehold.co/600x400/9f1239/ffffff?text=PowerBI+Details'], description: `<div>...</div>` }
             ];
 
-            // --- Render Projects ---
             const projectsGrid = document.getElementById('projects-grid');
             projectsData.forEach((project, index) => {
                 const projectEl = document.createElement('div');
                 projectEl.className = 'project-card-container slide-in-up';
                 projectEl.style.animationDelay = `${100 * (index + 1)}ms`;
-                // Project tiles are now larger (h-56)
-                projectEl.innerHTML = `
-                    <div class="project-card group cursor-pointer" data-project-id="${project.id}">
-                        <div class="card-bg rounded-lg overflow-hidden card-border-gradient">
-                            <img src="${project.images[0]}" alt="${project.title}" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <h4 class="font-semibold mt-3 text-gray-900 dark:text-white">${project.title}</h4>
-                    </div>
-                `;
+                projectEl.innerHTML = `<div class="project-card group cursor-pointer" data-project-id="${project.id}"><div class="top-pick-card rounded-lg overflow-hidden relative group bg-zinc-800"><img src="${project.images[0]}" alt="${project.title}" class="absolute w-full h-full object-cover opacity-80 group-hover:scale-105 transition-all duration-300"><div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div><h4 class="absolute bottom-4 left-4 text-white font-bold text-xl z-10">${project.title}</h4></div></div>`;
                 projectsGrid.appendChild(projectEl);
             });
             
-             // --- Theme Toggle ---
             const applyTheme = (theme) => {
-                if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.classList.remove('light');
-                    sunIcon.style.display = 'block';
-                    moonIcon.style.display = 'none';
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    document.documentElement.classList.add('light');
-                    sunIcon.style.display = 'none';
-                    moonIcon.style.display = 'block';
-                }
+                const isDark = theme === 'dark';
+                document.documentElement.classList.toggle('dark', isDark);
+                document.documentElement.classList.toggle('light', !isDark);
+                document.getElementById('theme-icon-sun').style.display = isDark ? 'block' : 'none';
+                document.getElementById('theme-icon-moon').style.display = isDark ? 'none' : 'block';
             };
             
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            applyTheme(savedTheme);
-
-            themeToggle.addEventListener('click', () => {
+            applyTheme(localStorage.getItem('theme') || 'dark');
+            document.getElementById('theme-toggle').addEventListener('click', () => {
                 const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
                 localStorage.setItem('theme', newTheme);
                 applyTheme(newTheme);
             });
             
-            // --- Splash Screen and Sound ---
             const playTudum = async () => {
-                await Tone.start();
-                const synth = new Tone.MembraneSynth().toDestination();
-                const now = Tone.now();
-                synth.triggerAttack("C1", now);
-                synth.triggerAttack("G1", now + 0.1);
-                synth.triggerAttackRelease("C2", "8n", now + 0.2);
+                try {
+                    await Tone.start();
+                    const synth = new Tone.MembraneSynth().toDestination();
+                    const now = Tone.now();
+                    synth.triggerAttack("C1", now);
+                    synth.triggerAttack("G1", now + 0.1);
+                    synth.triggerAttackRelease("C2", "8n", now + 0.2);
+                } catch (e) { console.error("Audio context failed:", e); }
             };
 
             const startApp = () => {
                 if (appStarted) return;
                 appStarted = true;
-                playTudum().catch(e => console.error("Audio context failed:", e));
+                playTudum();
+                const animationDuration = (splashText.length * 0.05 + 1.2) * 1000;
                 setTimeout(() => {
                     netflixSplash.style.opacity = '0';
                     setTimeout(() => {
@@ -484,62 +381,37 @@
                         profilesScreen.style.display = 'flex';
                         profilesScreen.classList.add('fade-in');
                     }, 500);
-                }, 1500);
+                }, animationDuration); 
             };
             
-            netflixSplash.addEventListener('click', startApp);
-            setTimeout(startApp, 1000);
+            setTimeout(startApp, 500);
 
-            // --- Mobile Menu ---
-            const toggleMobileMenu = () => {
-                mobileMenu.classList.toggle('open');
-                mobileMenuButton.classList.toggle('open');
-            };
-            mobileMenuButton.addEventListener('click', toggleMobileMenu);
-
-
-            // --- Page Navigation Logic ---
             const showPage = (targetId) => {
-                const pageId = targetId.substring(1);
-                pages.forEach(page => page.classList.remove('active'));
-                const activePage = document.getElementById(`${pageId}-page`);
-                if(activePage) activePage.classList.add('active');
-
+                const pageId = `${targetId.substring(1)}-page`;
+                pages.forEach(page => page.classList.toggle('active', page.id === pageId));
                 document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === targetId) {
-                        link.classList.add('active');
-                    }
+                    link.classList.toggle('active', link.getAttribute('href') === targetId);
                 });
+                 if (mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.remove('open');
+                    mobileMenuButton.classList.remove('open');
+                }
+                window.scrollTo(0, 0);
             };
 
-            const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
-            allNavLinks.forEach(link => {
+            document.querySelectorAll('.nav-link, .nav-button, #portfolio-logo-link').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    showPage(link.getAttribute('href'));
-                    if (mobileMenu.classList.contains('open')) {
-                        toggleMobileMenu();
-                    }
+                    const targetId = link.dataset.target || link.getAttribute('href');
+                    showPage(targetId);
                 });
             });
-            
-            portfolioLogoLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                showPage('#home');
-            });
-            
-            navButtons.forEach(button => {
-                button.addEventListener('click', () => showPage(button.dataset.target));
-            });
 
-            // --- Profile Selection Logic ---
-            profileCards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 100 + 100}ms`;
+            document.querySelectorAll('.profile-card').forEach((card) => {
                 card.addEventListener('click', () => {
-                    // Set the profile image in the nav bar
-                    const imgSrc = card.dataset.imgSrc;
-                    navProfileImg.src = imgSrc;
+                    const profileName = card.dataset.name;
+                    topPicksTitle.textContent = `Top Picks for ${profileName}`;
+                    navProfileImg.src = card.dataset.imgSrc;
                     navProfileIcon.classList.remove('hidden');
 
                     profilesScreen.style.opacity = '0';
@@ -553,65 +425,43 @@
                 });
             });
             
-            // Event listener for the new nav profile icon to switch back
             navProfileIcon.addEventListener('click', () => {
                  mainContent.style.opacity = '0';
                  setTimeout(() => {
                     mainContent.style.display = 'none';
                     profilesScreen.style.display = 'flex';
                     profilesScreen.style.opacity = '1';
-                    navProfileIcon.classList.add('hidden'); // Hide icon when going back
+                    navProfileIcon.classList.add('hidden'); 
                  }, 500);
             });
 
-            // --- Project Modal Logic ---
-            const updateModalImage = () => {
-                modalImage.src = currentProject.images[currentImageIndex];
-                fullscreenImage.src = currentProject.images[currentImageIndex];
-            };
-
-            const openModal = (projectId) => {
-                currentProject = projectsData.find(p => p.id === projectId);
-                if (!currentProject) return;
-                
-                currentImageIndex = 0;
-                modalTitle.textContent = currentProject.title;
-                modalBody.innerHTML = currentProject.description;
-                updateModalImage();
-                projectModal.style.display = 'flex';
-            };
-
-            const closeModal = () => projectModal.style.display = 'none';
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+                mobileMenuButton.classList.toggle('open');
+            });
             
+            window.addEventListener('scroll', () => {
+                mainHeader.classList.toggle('scrolled', window.scrollY > 20);
+            });
+
+            // Modal Logic
+            const projectModal = document.getElementById('project-modal');
             document.querySelectorAll('.project-card').forEach(card => {
                 card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     const projectId = e.currentTarget.dataset.projectId;
-                    openModal(projectId);
+                    const project = projectsData.find(p => p.id === projectId);
+                    if (!project) return;
+                    
+                    document.getElementById('modal-title').textContent = project.title;
+                    document.getElementById('modal-body').innerHTML = project.description;
+                    document.getElementById('modal-image').src = project.images[0];
+                    projectModal.style.display = 'flex';
                 });
             });
-
-            closeModalBtn.addEventListener('click', closeModal);
-            projectModal.addEventListener('click', (e) => {
-                if (e.target === projectModal) closeModal();
-            });
-
-            nextImageBtn.addEventListener('click', () => {
-                currentImageIndex = (currentImageIndex + 1) % currentProject.images.length;
-                updateModalImage();
-            });
-
-            prevImageBtn.addEventListener('click', () => {
-                currentImageIndex = (currentImageIndex - 1 + currentProject.images.length) % currentProject.images.length;
-                updateModalImage();
-            });
-
-            fullscreenBtn.addEventListener('click', () => {
-                fullscreenViewer.style.display = 'flex';
-            });
-
-            closeFullscreenBtn.addEventListener('click', () => {
-                fullscreenViewer.style.display = 'none';
-            });
+            document.getElementById('close-modal-btn').addEventListener('click', () => projectModal.style.display = 'none');
+            projectModal.addEventListener('click', (e) => { if (e.target === projectModal) projectModal.style.display = 'none'; });
         });
     </script>
 </body>
