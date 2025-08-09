@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12312My Portfolio</title>
+    <title>13My Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +31,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -99,7 +100,7 @@
         .k-logo path {
             stroke-dasharray: 550;
             stroke-dashoffset: 550;
-            animation: draw 1.2s ease-in-out forwards;
+            animation: draw 0.8s ease-in-out forwards;
         }
         @keyframes draw {
             to {
@@ -109,11 +110,13 @@
 
         /* --- Mobile Menu Animation --- */
         #mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
         }
         #mobile-menu.open {
-            transform: translateX(0);
+            opacity: 1;
+            visibility: visible;
         }
         #mobile-menu-button .hamburger-bar {
             transition: all 0.3s ease-in-out;
@@ -147,7 +150,7 @@
     </div>
 
     <!-- Who's Watching Screen -->
-    <div id="profiles-screen" class="fixed inset-0 z-40 flex-col items-center justify-center transition-opacity duration-500 hidden">
+    <div id="profiles-screen" class="fixed inset-0 z-40 flex-col items-center justify-center transition-opacity duration-500 hidden" style="background-color: var(--bg-color);">
         <h1 class="text-3xl md:text-5xl font-semibold mb-8">Who's watching</h1>
         <div class="flex flex-wrap justify-center gap-4 md:gap-8">
             <div class="profile-card text-center cursor-pointer group">
@@ -164,23 +167,23 @@
         <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-10 py-4 backdrop-blur-sm shadow-sm dark:shadow-none" style="background-color: var(--header-bg)">
             <div class="container mx-auto flex items-center justify-between">
                 <div class="flex items-center gap-8">
-                    <a href="#home" id="portfolio-logo-link" class="cursor-pointer">
+                    <a href="/home" class="nav-link-special cursor-pointer">
                         <h1 class="text-2xl md:text-3xl font-bold gradient-text">PORTFOLIO</h1>
                     </a>
                     <nav id="main-nav" class="hidden md:flex items-center gap-5">
-                        <a href="#home" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Home</a>
-                        <a href="#skills" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Skills</a>
-                        <a href="#projects" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Projects</a>
-                        <a href="#contact" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Contact</a>
+                        <a href="/home" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Home</a>
+                        <a href="/projects" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Projects</a>
+                        <a href="/skills" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Skills</a>
+                        <a href="/contact" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Contact</a>
                     </nav>
                 </div>
                 <div class="flex items-center gap-4">
                     <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                        <svg id="theme-icon-sun" class="h-5 w-5 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                        <svg id="theme-icon-moon" class="h-5 w-5 text-gray-800 dark:text-gray-200 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                        <svg id="theme-icon-sun" class="h-5 w-5 text-gray-500 dark:text-gray-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        <svg id="theme-icon-moon" class="h-5 w-5 text-gray-500 dark:text-gray-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
                     </button>
                     <button id="switch-profile-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" title="Switch Profile">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-800 dark:text-gray-200" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 dark:text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                         </svg>
                     </button>
@@ -199,19 +202,19 @@
         </header>
 
          <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden fixed top-0 right-0 h-full w-full z-30 flex flex-col items-center justify-center" style="background-color: var(--bg-color);">
+        <div id="mobile-menu" class="md:hidden fixed inset-0 z-30 flex flex-col items-center justify-center" style="background-color: var(--bg-color);">
             <nav class="flex flex-col items-center gap-8">
-                <a href="#home" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
-                <a href="#skills" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Skills</a>
-                <a href="#projects" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Projects</a>
-                <a href="#contact" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
+                <a href="/home" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
+                <a href="/projects" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Projects</a>
+                <a href="/skills" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Skills</a>
+                <a href="/contact" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
             </nav>
         </div>
 
-        <main class="pt-16">
+        <main>
             <!-- Home Page -->
             <div id="home-page" class="page">
-                <section class="relative h-[calc(100vh-4rem)] flex items-center justify-start">
+                <section class="relative h-screen flex items-center justify-start">
                     <div class="absolute inset-0">
                         <img src="https://media.giphy.com/media/yHI4yDBgzBvA4/giphy.gif" 
                              onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/000000/FFFFFF?text=Movie+Scene';"
@@ -223,12 +226,12 @@
                         <h2 class="text-4xl md:text-6xl font-black uppercase tracking-wider text-white">Hi, I'm a Power BI Developer</h2>
                         <p class="mt-4 text-lg text-gray-200 dark:text-gray-300">Welcome to my portfolio. I specialize in transforming data into compelling stories and actionable insights that drive business decisions.</p>
                         <div class="mt-8 flex gap-4">
-                            <button data-target="#projects" class="nav-button gradient-button text-white font-bold py-3 px-8 rounded-full flex items-center gap-2">
+                            <a href="/projects" class="nav-button gradient-button text-white font-bold py-3 px-8 rounded-full flex items-center gap-2">
                                 My Work
-                            </button>
-                            <button data-target="#contact" class="nav-button bg-gray-100/20 dark:bg-gray-700/50 text-white font-bold py-3 px-8 rounded-full flex items-center gap-2 hover:bg-gray-100/30 dark:hover:bg-gray-700/80 transition-colors">
+                            </a>
+                            <a href="/contact" class="nav-button bg-gray-100/20 dark:bg-gray-700/50 text-white font-bold py-3 px-8 rounded-full flex items-center gap-2 hover:bg-gray-100/30 dark:hover:bg-gray-700/80 transition-colors">
                                 Contact Info
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -238,7 +241,7 @@
             <div id="skills-page" class="page">
                 <section class="py-16 px-4 md:px-10 lg:px-20">
                     <h3 class="text-3xl font-bold mb-10 text-center">My <span class="gradient-text">Tech Stack</span></h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
                         <div class="card-bg rounded-lg p-6 text-center slide-in-up card-border-gradient" style="animation-delay: 100ms;">
                             <h4 class="font-bold text-xl">BI & Visualization</h4>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Power BI Desktop, DAX, Power Query (M), Data Modeling, Report Design</p>
@@ -263,7 +266,7 @@
             <div id="projects-page" class="page">
                 <section class="py-16 px-4 md:px-10 lg:px-20">
                     <h3 class="text-3xl font-bold mb-10 text-center">Recent <span class="gradient-text">Projects</span></h3>
-                    <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8">
                         <!-- Projects will be dynamically inserted here -->
                     </div>
                 </section>
@@ -412,6 +415,7 @@
                             <img src="${project.images[0]}" alt="${project.title}" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
                         </div>
                         <h4 class="font-semibold mt-3 text-gray-900 dark:text-white">${project.title}</h4>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Click for details</p>
                     </div>
                 `;
                 projectsGrid.appendChild(projectEl);
@@ -462,11 +466,23 @@
                         profilesScreen.style.display = 'flex';
                         profilesScreen.classList.add('fade-in');
                     }, 500);
-                }, 1500);
+                }, 1000);
             };
             
-            netflixSplash.addEventListener('click', startApp);
-            setTimeout(startApp, 1000);
+            const skipIntro = () => {
+                netflixSplash.style.display = 'none';
+                profilesScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                mainContent.style.opacity = '1';
+                handleRouting();
+            };
+
+            if (localStorage.getItem('hasVisited')) {
+                skipIntro();
+            } else {
+                netflixSplash.addEventListener('click', startApp);
+                setTimeout(startApp, 500);
+            }
 
             // --- Mobile Menu ---
             const toggleMobileMenu = () => {
@@ -477,51 +493,65 @@
 
 
             // --- Page Navigation Logic ---
-            const showPage = (targetId) => {
-                const pageId = targetId.substring(1);
+            const showPage = (path) => {
+                const pageId = path.substring(1);
                 pages.forEach(page => page.classList.remove('active'));
                 const activePage = document.getElementById(`${pageId}-page`);
-                if(activePage) activePage.classList.add('active');
+                
+                if(activePage) {
+                    activePage.classList.add('active');
+                } else {
+                    // Fallback to home page if path is invalid
+                    document.getElementById('home-page').classList.add('active');
+                }
 
                 document.querySelectorAll('.nav-link').forEach(link => {
                     link.classList.remove('active');
-                    if (link.getAttribute('href') === targetId) {
+                    if (link.getAttribute('href') === path) {
                         link.classList.add('active');
                     }
                 });
             };
+            
+            const handleRouting = () => {
+                const path = window.location.pathname.toLowerCase();
+                const validRoutes = ['/home', '/projects', '/skills', '/contact'];
+                const route = validRoutes.includes(path) ? path : '/home';
+                showPage(route);
+            };
 
-            const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+            const navigate = (path) => {
+                history.pushState({}, '', path);
+                handleRouting();
+            };
+            
+            const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link, .nav-button, #portfolio-logo-link');
             allNavLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    showPage(link.getAttribute('href'));
+                    const path = link.getAttribute('href');
+                    navigate(path);
                     if (mobileMenu.classList.contains('open')) {
                         toggleMobileMenu();
                     }
                 });
             });
             
-            portfolioLogoLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                showPage('#home');
-            });
-            
-            navButtons.forEach(button => {
-                button.addEventListener('click', () => showPage(button.dataset.target));
-            });
+            window.addEventListener('popstate', handleRouting);
+
 
             // --- Profile Selection Logic ---
             profileCards.forEach((card, index) => {
                 card.style.animationDelay = `${index * 100 + 100}ms`;
                 card.addEventListener('click', () => {
+                    localStorage.setItem('hasVisited', 'true');
                     profilesScreen.style.opacity = '0';
                     setTimeout(() => {
                         profilesScreen.style.display = 'none';
                         mainContent.style.display = 'block';
                         mainContent.classList.add('slide-in-up');
                         setTimeout(() => mainContent.style.opacity = '1', 50);
-                        showPage('#home');
+                        navigate('/home');
                     }, 500);
                 });
             });
