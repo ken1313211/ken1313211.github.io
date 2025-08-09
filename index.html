@@ -147,7 +147,9 @@
         <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-10 py-4 bg-[#0B0B0F]/80 backdrop-blur-sm">
             <div class="container mx-auto flex items-center justify-between">
                 <div class="flex items-center gap-8">
-                    <h1 class="text-2xl md:text-3xl font-bold gradient-text">PORTFOLIO</h1>
+                    <a href="#home" id="portfolio-logo-link" class="cursor-pointer">
+                        <h1 class="text-2xl md:text-3xl font-bold gradient-text">PORTFOLIO</h1>
+                    </a>
                     <nav id="main-nav" class="hidden md:flex items-center gap-5">
                         <a href="#home" class="nav-link text-sm text-gray-300 hover:text-white transition-colors">Home</a>
                         <a href="#skills" class="nav-link text-sm text-gray-300 hover:text-white transition-colors">Skills</a>
@@ -324,6 +326,7 @@
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             const switchProfileBtn = document.getElementById('switch-profile-btn');
+            const portfolioLogoLink = document.getElementById('portfolio-logo-link');
             
             const projectCards = document.querySelectorAll('.project-card');
             const projectModal = document.getElementById('project-modal');
@@ -392,6 +395,11 @@
                         toggleMobileMenu();
                     }
                 });
+            });
+            
+            portfolioLogoLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showPage('#home');
             });
             
             navButtons.forEach(button => {
