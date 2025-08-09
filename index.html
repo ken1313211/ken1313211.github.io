@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>13My Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -307,7 +307,7 @@
         </main>
     </div>
 
-    <div id="project-modal" class="fixed inset-0 z-50 items-center justify-center hidden modal-overlay"><div class="bg-white dark:bg-[#16161A] rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-1/2 max-w-4xl max-h-[90vh] flex flex-col card-border-gradient"><div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800"><h3 id="modal-title" class="text-xl font-bold gradient-text"></h3><button id="close-modal-btn" class="text-2xl font-bold leading-none text-gray-400 hover:text-white">&times;</button></div><div class="p-6 flex-grow overflow-y-auto no-scrollbar text-gray-700 dark:text-gray-300 min-w-0"><div class="relative mb-4"><img id="modal-image" src="" alt="Project Image" class="w-full h-auto rounded-lg"><button id="prev-image-btn" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">&lt;</button><button id="next-image-btn" class="absolute top-1/2 right-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">&gt;</button><button id="fullscreen-btn" class="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m0 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5h-4m0 0v-4m0 4l-5-5"></path></svg></button></div><div id="modal-body"></div></div></div></div>
+    <div id="project-modal" class="fixed inset-0 z-50 items-center justify-center hidden modal-overlay"><div class="bg-white dark:bg-[#16161A] rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-1/2 max-w-4xl max-h-[90vh] flex flex-col card-border-gradient"><div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800"><h3 id="modal-title" class="text-xl font-bold gradient-text"></h3><button id="close-modal-btn" class="text-2xl font-bold leading-none text-gray-400 hover:text-white">&times;</button></div><div class="p-6 flex-grow overflow-y-auto no-scrollbar text-gray-700 dark:text-gray-200 min-w-0"><div class="relative mb-4"><img id="modal-image" src="" alt="Project Image" class="w-full h-auto rounded-lg"><button id="prev-image-btn" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">&lt;</button><button id="next-image-btn" class="absolute top-1/2 right-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">&gt;</button><button id="fullscreen-btn" class="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m0 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5h-4m0 0v-4m0 4l-5-5"></path></svg></button></div><div id="modal-body"></div></div></div></div>
     <div id="fullscreen-viewer" class="fixed inset-0 z-50 bg-black/80 items-center justify-center hidden"><img id="fullscreen-image" src="" class="max-w-full max-h-full"><button id="close-fullscreen-btn" class="absolute top-4 right-4 text-white text-4xl">&times;</button></div>
 
     <script>
@@ -330,8 +330,48 @@
             splashContainer.innerHTML = splashText.split('').map((char, i) => `<span class="splash-title-char" style="animation-delay: ${i * 0.05}s">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
 
             const projectsData = [
-                { id: 'excel-sales', title: 'Excel: Sales Dashboard', images: ['https://placehold.co/600x400/1d4ed8/ffffff?text=Excel+View+1', 'https://placehold.co/600x400/3b82f6/ffffff?text=Excel+Chart+2'], description: `<div>...</div>` },
-                { id: 'powerbi-games', title: 'PowerBI: Video Games Sales', images: ['https://placehold.co/600x400/be123c/ffffff?text=PowerBI+Overview', 'https://placehold.co/600x400/9f1239/ffffff?text=PowerBI+Details'], description: `<div>...</div>` }
+                { 
+                    id: 'excel-sales', 
+                    title: 'Excel: Sales Dashboard', 
+                    images: ['https://placehold.co/600x400/1d4ed8/ffffff?text=Excel+View+1', 'https://placehold.co/600x400/3b82f6/ffffff?text=Excel+Chart+2'], 
+                    description: `
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="text-lg font-bold mb-2 gradient-text">Key Objectives</h3>
+                                <p>This project involved creating a dynamic sales dashboard in Excel to track KPIs and provide actionable insights for the sales team.</p>
+                            </div>
+                             <div>
+                                <h3 class="text-lg font-bold mb-2 gradient-text">Technologies Used</h3>
+                                <p>Advanced Excel, Pivot Tables, Power Query, VBA for automation.</p>
+                            </div>
+                             <div>
+                                <h3 class="text-lg font-bold mb-2 gradient-text">Project Impact</h3>
+                                <p>Enabled real-time sales tracking, leading to a 15% improvement in sales performance and forecasting accuracy.</p>
+                            </div>
+                        </div>
+                    ` 
+                },
+                { 
+                    id: 'powerbi-games', 
+                    title: 'PowerBI: Video Games Sales', 
+                    images: ['https://placehold.co/600x400/be123c/ffffff?text=PowerBI+Overview', 'https://placehold.co/600x400/9f1239/ffffff?text=PowerBI+Details'], 
+                    description: `
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="text-lg font-bold mb-2 gradient-text">Key Objectives</h3>
+                                <p>Developed an interactive Power BI dashboard to analyze global video game sales trends across different platforms and genres.</p>
+                            </div>
+                             <div>
+                                <h3 class="text-lg font-bold mb-2 gradient-text">Technologies Used</h3>
+                                <p>Power BI, DAX for complex calculations, Power Query for data transformation, SQL for data extraction.</p>
+                            </div>
+                             <div>
+                                <h3 class="text-lg font-bold mb-2 gradient-text">Project Impact</h3>
+                                <p>Provided key insights into market trends, helping stakeholders identify new opportunities and optimize marketing strategies.</p>
+                            </div>
+                        </div>
+                    ` 
+                }
             ];
 
             const projectsGrid = document.getElementById('projects-grid');
@@ -373,21 +413,25 @@
                 if (appStarted) return;
                 appStarted = true;
                 playTudum();
-                const animationDuration = (splashText.length * 0.05 + 1.2) * 1000;
+                netflixSplash.style.opacity = '0';
                 setTimeout(() => {
-                    netflixSplash.style.opacity = '0';
-                    setTimeout(() => {
-                        netflixSplash.style.display = 'none';
-                        profilesScreen.style.display = 'flex';
-                        profilesScreen.classList.add('fade-in');
-                    }, 500);
-                }, animationDuration); 
+                    netflixSplash.style.display = 'none';
+                    profilesScreen.style.display = 'flex';
+                    profilesScreen.classList.add('fade-in');
+                }, 500);
             };
             
-            setTimeout(startApp, 500);
+            const animationDuration = (splashText.length * 0.05 + 1.2) * 1000;
+            setTimeout(startApp, animationDuration);
 
             const showPage = (targetId) => {
                 const pageId = `${targetId.substring(1)}-page`;
+                const isHomePage = pageId === 'home-page';
+
+                mainContent.style.paddingTop = isHomePage ? '0' : '5rem';
+                mainHeader.classList.toggle('header-gradient', isHomePage);
+                mainHeader.classList.toggle('scrolled', !isHomePage);
+
                 pages.forEach(page => page.classList.toggle('active', page.id === pageId));
                 document.querySelectorAll('.nav-link').forEach(link => {
                     link.classList.toggle('active', link.getAttribute('href') === targetId);
@@ -418,6 +462,7 @@
                     setTimeout(() => {
                         profilesScreen.style.display = 'none';
                         mainContent.style.display = 'block';
+                        mainHeader.style.display = 'flex';
                         mainContent.classList.add('slide-in-up');
                         setTimeout(() => mainContent.style.opacity = '1', 50);
                         showPage('#home');
@@ -429,6 +474,7 @@
                  mainContent.style.opacity = '0';
                  setTimeout(() => {
                     mainContent.style.display = 'none';
+                    mainHeader.style.display = 'none';
                     profilesScreen.style.display = 'flex';
                     profilesScreen.style.opacity = '1';
                     navProfileIcon.classList.add('hidden'); 
@@ -441,7 +487,9 @@
             });
             
             window.addEventListener('scroll', () => {
-                mainHeader.classList.toggle('scrolled', window.scrollY > 20);
+                if (document.getElementById('home-page').classList.contains('active')) {
+                    mainHeader.classList.toggle('scrolled', window.scrollY > 20);
+                }
             });
 
             // Modal Logic
