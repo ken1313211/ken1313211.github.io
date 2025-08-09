@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>423My Portfolio</title>
+    <title>My Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -107,13 +107,16 @@
             }
         }
 
-        /* --- Mobile Menu Animation --- */
+        /* --- Mobile Menu Animation (FIXED) --- */
         #mobile-menu {
             transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
+            /* Use visibility to prevent layout breaking */
+            visibility: hidden;
+            transition: transform 0.3s ease-in-out, visibility 0.3s;
         }
         #mobile-menu.open {
             transform: translateX(0);
+            visibility: visible;
         }
         #mobile-menu-button .hamburger-bar {
             transition: all 0.3s ease-in-out;
@@ -128,10 +131,17 @@
         #mobile-menu-button.open .hamburger-bottom {
             transform: translate(1px, -2px) rotate(-45deg) scaleX(0.8);
         }
+
+        /* --- Modal Overlay Style (ADDED) --- */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
     </style>
 </head>
-<body>
+<body class="overflow-x-hidden">
 
+    <!-- Netflix Splash Screen -->
     <div id="netflix-splash" class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500">
         <svg class="k-logo" viewBox="0 0 140 230">
             <defs>
@@ -145,6 +155,7 @@
         </svg>
     </div>
 
+    <!-- Who's Watching Screen -->
     <div id="profiles-screen" class="fixed inset-0 z-40 flex-col items-center justify-center transition-opacity duration-500 hidden">
         <h1 class="text-3xl md:text-5xl font-semibold mb-8">Who's watching</h1>
         <div class="flex flex-wrap justify-center gap-4 md:gap-8">
@@ -157,6 +168,7 @@
         </div>
     </div>
 
+    <!-- Main Portfolio Content -->
     <div id="main-content" class="hidden opacity-0 transition-opacity duration-500">
         <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-10 py-4 backdrop-blur-sm shadow-sm dark:shadow-none" style="background-color: var(--header-bg)">
             <div class="container mx-auto flex items-center justify-between">
@@ -181,6 +193,7 @@
                           <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                         </svg>
                     </button>
+                    <!-- Mobile Menu Button -->
                     <div class="md:hidden">
                         <button id="mobile-menu-button" class="p-2 rounded-md text-gray-300 hover:text-white z-50 relative h-8 w-8">
                            <svg class="h-full w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -194,6 +207,7 @@
             </div>
         </header>
 
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="md:hidden fixed top-0 right-0 h-full w-full z-30 flex flex-col items-center justify-center" style="background-color: var(--bg-color);">
             <nav class="flex flex-col items-center gap-8">
                 <a href="#home" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
@@ -204,6 +218,7 @@
         </div>
 
         <main class="pt-16">
+            <!-- Home Page -->
             <div id="home-page" class="page">
                 <section class="relative h-[calc(100vh-4rem)] flex items-center justify-start">
                     <div class="absolute inset-0">
@@ -228,6 +243,7 @@
                 </section>
             </div>
 
+            <!-- Skills Page -->
             <div id="skills-page" class="page">
                 <section class="py-16 px-4 md:px-10 lg:px-20">
                     <h3 class="text-3xl font-bold mb-10 text-center">My <span class="gradient-text">Tech Stack</span></h3>
@@ -252,14 +268,17 @@
                 </section>
             </div>
 
+            <!-- Projects Page -->
             <div id="projects-page" class="page">
                 <section class="py-16 px-4 md:px-10 lg:px-20">
                     <h3 class="text-3xl font-bold mb-10 text-center">Recent <span class="gradient-text">Projects</span></h3>
                     <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        </div>
+                        <!-- Projects will be dynamically inserted here -->
+                    </div>
                 </section>
             </div>
             
+            <!-- Contact Page -->
             <div id="contact-page" class="page">
                  <section class="py-20 px-4 md:px-10 lg:px-20">
                     <div class="max-w-xl mx-auto text-center slide-in-up">
@@ -279,12 +298,14 @@
         </main>
     </div>
 
+    <!-- Project Details Modal -->
     <div id="project-modal" class="fixed inset-0 z-50 items-center justify-center hidden modal-overlay">
         <div class="bg-white dark:bg-[#16161A] rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-1/2 max-w-4xl max-h-[90vh] flex flex-col card-border-gradient">
             <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
                 <h3 id="modal-title" class="text-xl font-bold gradient-text"></h3>
                 <button id="close-modal-btn" class="text-2xl font-bold leading-none text-gray-400 hover:text-gray-800 dark:hover:text-white">&times;</button>
             </div>
+            <!-- This container now has min-w-0 to prevent overflow on small screens -->
             <div class="p-6 flex-grow overflow-y-auto no-scrollbar text-gray-700 dark:text-gray-300 min-w-0">
                 <div class="relative mb-4">
                     <img id="modal-image" src="" alt="Project Image" class="w-full h-auto rounded-lg">
@@ -299,6 +320,7 @@
         </div>
     </div>
     
+    <!-- Fullscreen Image Viewer -->
     <div id="fullscreen-viewer" class="fixed inset-0 z-50 bg-black/80 items-center justify-center hidden">
         <img id="fullscreen-image" src="" class="max-w-full max-h-full">
         <button id="close-fullscreen-btn" class="absolute top-4 right-4 text-white text-4xl">&times;</button>
