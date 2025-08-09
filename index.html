@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>13My Portfolio</title>
+    <title>Kenneth Garcia's Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,11 +63,17 @@
             background-position: right center;
             transform: scale(1.05);
         }
+        
+        .nav-link {
+            color: #a0aec0; /* Default light grey for visibility on dark backgrounds */
+            transition: color 0.2s ease-in-out;
+        }
+        .nav-link:hover {
+            color: #ffffff; /* White on hover */
+        }
         .nav-link.active {
             font-weight: 700;
-        }
-        html.dark .nav-link.active {
-             color: white;
+            color: #ffffff; /* White when active */
         }
 
         .page { display: none; animation: fadeIn 0.4s ease-in-out; }
@@ -78,15 +84,15 @@
         }
         
         #main-header {
-            transition: background-color 0.4s ease-out;
+            transition: background-color 0.4s ease-out, background-image 0.4s ease-out;
         }
         #main-header.header-gradient {
             background-image: var(--header-bg-transparent);
             background-color: transparent;
         }
         #main-header.scrolled {
-            background-color: var(--header-bg);
-            background-image: none;
+            background-color: transparent;
+            background-image: linear-gradient(to bottom, #141414, rgba(20, 20, 20, 0));
         }
 
 
@@ -103,7 +109,6 @@
 
         #netflix-splash {
             background-color: #141414;
-            cursor: pointer;
             font-family: 'Bebas Neue', sans-serif;
         }
         .splash-title-char {
@@ -158,7 +163,6 @@
     <div id="netflix-splash" class="fixed inset-0 z-50 flex flex-col items-center justify-center transition-opacity duration-500 p-4">
         <div id="splash-text-container" class="text-3xl md:text-6xl font-bold text-center tracking-widest">
         </div>
-        <p class="absolute bottom-[20%] text-gray-400 text-sm md:text-base animate-pulse">Click anywhere to enter</p>
     </div>
 
     <div id="profiles-screen" class="fixed inset-0 z-40 flex-col items-center justify-center transition-opacity duration-500 hidden bg-[#141414]">
@@ -180,15 +184,15 @@
     </div>
 
     <div id="main-content" class="hidden opacity-0 transition-opacity duration-500">
-        <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-10 py-4 flex items-center justify-between header-gradient">
+        <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-10 py-4 flex items-center justify-between">
             <div class="flex items-center gap-8">
                 <a href="#home" id="portfolio-logo-link" class="cursor-pointer text-red-600 text-3xl font-bold tracking-wider" style="font-family: 'Bebas Neue', sans-serif;">PORTFOLIO</a>
                 <nav id="main-nav" class="hidden md:flex items-center gap-6">
-                    <a href="#home" class="nav-link text-sm text-gray-200 hover:text-gray-400 transition-colors">Home</a>
-                    <a href="#skills" class="nav-link text-sm text-gray-200 hover:text-gray-400 transition-colors">Skills</a>
-                    <a href="#projects" class="nav-link text-sm text-gray-200 hover:text-gray-400 transition-colors">Projects</a>
-                    <a href="#certifications" class="nav-link text-sm text-gray-200 hover:text-gray-400 transition-colors">Certifications</a>
-                    <a href="#contact" class="nav-link text-sm text-gray-200 hover:text-gray-400 transition-colors">Contact</a>
+                    <a href="#home" class="nav-link text-sm">Home</a>
+                    <a href="#projects" class="nav-link text-sm">Projects</a>
+                    <a href="#skills" class="nav-link text-sm">Skills</a>
+                    <a href="#certifications" class="nav-link text-sm">Certifications</a>
+                    <a href="#contact" class="nav-link text-sm">Contact</a>
                 </nav>
             </div>
             <div class="flex items-center gap-4">
@@ -214,9 +218,9 @@
         <div id="mobile-menu" class="md:hidden fixed top-0 right-0 h-full w-full z-30 flex flex-col items-center justify-center bg-[#141414]">
             <nav class="flex flex-col items-center gap-8">
                 <a href="#home" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Home</a>
-                <a href="#skills" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Skills</a>
                 <a href="#projects" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Projects</a>
-                 <a href="#certifications" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Certifications</a>
+                <a href="#skills" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Skills</a>
+                <a href="#certifications" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Certifications</a>
                 <a href="#contact" class="mobile-nav-link text-2xl text-gray-300 hover:text-white">Contact</a>
             </nav>
         </div>
@@ -295,20 +299,22 @@
 
             <div id="contact-page" class="page px-4 md:px-10 lg:px-20 pb-16">
                  <section class="max-w-xl mx-auto text-center slide-in-up mt-10">
+                    <img src="https://placehold.co/128x128/E50914/FFFFFF?text=KG" alt="Kenneth Garcia" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-red-600 shadow-lg">
                     <h3 class="text-3xl font-bold">Get In <span class="gradient-text">Touch</span></h3>
-                    <p class="mt-4 text-gray-600 dark:text-gray-400">I'm currently open to new opportunities and collaborations. Feel free to send me a message.</p>
-                    <a href="mailto:your.email@example.com" class="mt-8 inline-block gradient-button text-white font-bold py-3 px-8 rounded-full">Say Hello</a>
-                     <div class="flex justify-center gap-6 mt-12 text-gray-500 dark:text-gray-400">
-                         <a href="#" class="hover:text-white transition-colors">GitHub</a>
-                         <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
-                         <a href="#" class="hover:text-white transition-colors">Twitter</a>
-                     </div>
+                    <p class="mt-4 text-gray-700 dark:text-white">I'm currently open to new opportunities and collaborations. Feel free to reach out via email or connect with me on LinkedIn.</p>
+                    <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+                        <a href="mailto:your.email@example.com" class="inline-block gradient-button text-white font-bold py-3 px-8 rounded-full">Say Hello</a>
+                        <a href="#" class="inline-flex items-center gap-2 bg-[#0077B5] text-white font-bold py-3 px-6 rounded-full hover:bg-[#005582] transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
+                            LinkedIn
+                        </a>
+                    </div>
                 </section>
             </div>
         </main>
     </div>
 
-    <div id="project-modal" class="fixed inset-0 z-50 items-center justify-center hidden modal-overlay"><div class="bg-white dark:bg-[#16161A] rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-1/2 max-w-4xl max-h-[90vh] flex flex-col card-border-gradient"><div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800"><h3 id="modal-title" class="text-xl font-bold gradient-text"></h3><button id="close-modal-btn" class="text-2xl font-bold leading-none text-gray-400 hover:text-white">&times;</button></div><div class="p-6 flex-grow overflow-y-auto no-scrollbar text-gray-700 dark:text-gray-200 min-w-0"><div class="relative mb-4"><img id="modal-image" src="" alt="Project Image" class="w-full h-auto rounded-lg"><button id="prev-image-btn" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hidden">&lt;</button><button id="next-image-btn" class="absolute top-1/2 right-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hidden">&gt;</button><button id="fullscreen-btn" class="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m0 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5h-4m0 0v-4m0 4l-5-5"></path></svg></button></div><div id="modal-body"></div></div></div></div>
+    <div id="project-modal" class="fixed inset-0 z-50 items-center justify-center hidden modal-overlay"><div class="bg-white dark:bg-[#16161A] rounded-lg shadow-xl w-11/12 md:w-3/4 lg:w-1/2 max-w-4xl max-h-[90vh] flex flex-col card-border-gradient"><div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800"><h3 id="modal-title" class="text-xl font-bold gradient-text"></h3><button id="close-modal-btn" class="text-2xl font-bold leading-none text-gray-400 hover:text-white">&times;</button></div><div class="p-6 flex-grow overflow-y-auto no-scrollbar min-w-0"><div class="relative mb-4"><img id="modal-image" src="" alt="Project Image" class="w-full h-auto rounded-lg"><button id="prev-image-btn" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hidden">&lt;</button><button id="next-image-btn" class="absolute top-1/2 right-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hidden">&gt;</button><button id="fullscreen-btn" class="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 4H4v6m10-6h6v6M10 20H4v-6m10 6h6v-6"></path></svg></button></div><div id="modal-body"></div></div></div></div>
     <div id="fullscreen-viewer" class="fixed inset-0 z-[60] bg-black/90 items-center justify-center hidden"><img id="fullscreen-image" src="" class="max-w-full max-h-full object-contain"><button id="close-fullscreen-btn" class="absolute top-4 right-4 text-white text-4xl">&times;</button></div>
 
     <script>
@@ -334,9 +340,9 @@
                 { 
                     id: 'excel-sales', 
                     title: 'Excel: Sales Dashboard', 
-                    images: ['http://googleusercontent.com/file_content/0', 'https://placehold.co/600x400/3b82f6/ffffff?text=Excel+Chart+2'], 
+                    images: ['https://placehold.co/600x400/1d4ed8/ffffff?text=Excel+View+1', 'https://placehold.co/600x400/3b82f6/ffffff?text=Excel+Chart+2'], 
                     description: `
-                        <div class="space-y-4">
+                        <div class="space-y-4 text-gray-700 dark:text-white">
                             <div>
                                 <h3 class="text-lg font-bold mb-2 gradient-text">Key Objectives</h3>
                                 <p>This project involved creating a dynamic sales dashboard in Excel to track KPIs and provide actionable insights for the sales team.</p>
@@ -357,7 +363,7 @@
                     title: 'PowerBI: Video Games Sales', 
                     images: ['https://placehold.co/600x400/be123c/ffffff?text=PowerBI+Overview', 'https://placehold.co/600x400/9f1239/ffffff?text=PowerBI+Details'], 
                     description: `
-                        <div class="space-y-4">
+                        <div class="space-y-4 text-gray-700 dark:text-white">
                             <div>
                                 <h3 class="text-lg font-bold mb-2 gradient-text">Key Objectives</h3>
                                 <p>Developed an interactive Power BI dashboard to analyze global video game sales trends across different platforms and genres.</p>
@@ -401,15 +407,15 @@
             
             const playTudum = async () => {
                 try {
-                    if (Tone.context.state !== 'running') {
-                       await Tone.start();
-                    }
+                    await Tone.start();
                     const synth = new Tone.MembraneSynth().toDestination();
                     const now = Tone.now();
                     synth.triggerAttack("C1", now);
                     synth.triggerAttack("G1", now + 0.1);
                     synth.triggerAttackRelease("C2", "8n", now + 0.2);
-                } catch (e) { console.error("Audio context failed:", e); }
+                } catch (e) { 
+                    console.warn("Audio could not be played automatically. A user interaction is required."); 
+                }
             };
 
             const startApp = () => {
@@ -417,10 +423,6 @@
                 appStarted = true;
                 playTudum();
                 netflixSplash.style.opacity = '0';
-                
-                const prompt = netflixSplash.querySelector('p');
-                if (prompt) prompt.style.display = 'none';
-
                 setTimeout(() => {
                     netflixSplash.style.display = 'none';
                     profilesScreen.style.display = 'flex';
@@ -428,19 +430,19 @@
                 }, 500);
             };
             
-            // FIX: Call startApp on user click to enable audio, instead of a timeout.
-            netflixSplash.addEventListener('click', startApp, { once: true });
+            const animationDuration = (splashText.length * 0.05 + 1.5) * 1000;
+            setTimeout(startApp, animationDuration);
+
 
             const showPage = (targetId) => {
                 const pageId = `${targetId.substring(1)}-page`;
                 const isHomePage = pageId === 'home-page';
 
-                mainContent.style.paddingTop = isHomePage ? '0' : '5rem';
                 mainHeader.classList.toggle('header-gradient', isHomePage);
-                mainHeader.classList.toggle('scrolled', !isHomePage);
+                mainHeader.classList.toggle('scrolled', !isHomePage || window.scrollY > 20);
 
                 pages.forEach(page => page.classList.toggle('active', page.id === pageId));
-                document.querySelectorAll('.nav-link').forEach(link => {
+                document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
                     link.classList.toggle('active', link.getAttribute('href') === targetId);
                 });
                  if (mobileMenu.classList.contains('open')) {
@@ -493,12 +495,13 @@
             });
             
             window.addEventListener('scroll', () => {
-                if (document.getElementById('home-page').classList.contains('active')) {
+                const isHomePage = document.getElementById('home-page').classList.contains('active');
+                if (isHomePage) {
                     mainHeader.classList.toggle('scrolled', window.scrollY > 20);
                 }
             });
 
-            // --- START: MODAL FIX ---
+            // --- MODAL LOGIC (FIXED) ---
             let currentProject = null;
             let currentImageIndex = 0;
 
@@ -568,7 +571,7 @@
             closeFullscreenBtn.addEventListener('click', () => {
                  fullscreenViewer.style.display = 'none';
             });
-            // --- END: MODAL FIX ---
+            // --- END: MODAL LOGIC ---
         });
     </script>
 </body>
