@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>173My Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +24,12 @@
             --card-bg: #16161A;
             --text-muted: #a0aec0;
             --header-bg: rgba(11, 11, 15, 0.8);
+        }
+
+        /* --- Horizontal Scroll Fix (ADDED) --- */
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
         }
 
         body {
@@ -139,7 +145,7 @@
         }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body>
 
     <!-- Netflix Splash Screen -->
     <div id="netflix-splash" class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500">
