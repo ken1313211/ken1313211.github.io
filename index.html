@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>13My Portfolio</title>
+    <title>My Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -167,14 +167,14 @@
         <header id="main-header" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-10 py-4 backdrop-blur-sm shadow-sm dark:shadow-none" style="background-color: var(--header-bg)">
             <div class="container mx-auto flex items-center justify-between">
                 <div class="flex items-center gap-8">
-                    <a href="/home" class="nav-link-special cursor-pointer">
+                    <a href="#home" class="nav-link-special cursor-pointer">
                         <h1 class="text-2xl md:text-3xl font-bold gradient-text">PORTFOLIO</h1>
                     </a>
                     <nav id="main-nav" class="hidden md:flex items-center gap-5">
-                        <a href="/home" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Home</a>
-                        <a href="/projects" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Projects</a>
-                        <a href="/skills" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Skills</a>
-                        <a href="/contact" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Contact</a>
+                        <a href="#home" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Home</a>
+                        <a href="#projects" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Projects</a>
+                        <a href="#skills" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Skills</a>
+                        <a href="#contact" class="nav-link text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Contact</a>
                     </nav>
                 </div>
                 <div class="flex items-center gap-4">
@@ -204,10 +204,10 @@
          <!-- Mobile Menu -->
         <div id="mobile-menu" class="md:hidden fixed inset-0 z-30 flex flex-col items-center justify-center" style="background-color: var(--bg-color);">
             <nav class="flex flex-col items-center gap-8">
-                <a href="/home" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
-                <a href="/projects" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Projects</a>
-                <a href="/skills" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Skills</a>
-                <a href="/contact" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
+                <a href="#home" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
+                <a href="#projects" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Projects</a>
+                <a href="#skills" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Skills</a>
+                <a href="#contact" class="mobile-nav-link text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Contact</a>
             </nav>
         </div>
 
@@ -226,10 +226,10 @@
                         <h2 class="text-4xl md:text-6xl font-black uppercase tracking-wider text-white">Hi, I'm a Power BI Developer</h2>
                         <p class="mt-4 text-lg text-gray-200 dark:text-gray-300">Welcome to my portfolio. I specialize in transforming data into compelling stories and actionable insights that drive business decisions.</p>
                         <div class="mt-8 flex gap-4">
-                            <a href="/projects" class="nav-button gradient-button text-white font-bold py-3 px-8 rounded-full flex items-center gap-2">
+                            <a href="#projects" class="nav-button gradient-button text-white font-bold py-3 px-8 rounded-full flex items-center gap-2">
                                 My Work
                             </a>
-                            <a href="/contact" class="nav-button bg-gray-100/20 dark:bg-gray-700/50 text-white font-bold py-3 px-8 rounded-full flex items-center gap-2 hover:bg-gray-100/30 dark:hover:bg-gray-700/80 transition-colors">
+                            <a href="#contact" class="nav-button bg-gray-100/20 dark:bg-gray-700/50 text-white font-bold py-3 px-8 rounded-full flex items-center gap-2 hover:bg-gray-100/30 dark:hover:bg-gray-700/80 transition-colors">
                                 Contact Info
                             </a>
                         </div>
@@ -514,30 +514,24 @@
             };
             
             const handleRouting = () => {
-                const path = window.location.pathname.toLowerCase();
-                const validRoutes = ['/home', '/projects', '/skills', '/contact'];
-                const route = validRoutes.includes(path) ? path : '/home';
-                showPage(route);
+                const path = window.location.hash || '#home';
+                showPage(path);
             };
 
-            const navigate = (path) => {
-                history.pushState({}, '', path);
-                handleRouting();
-            };
-            
-            const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link, .nav-button, #portfolio-logo-link');
+            const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link, .nav-button, #portfolio-logo-link, a[href^="#"]');
             allNavLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     const path = link.getAttribute('href');
-                    navigate(path);
+                    window.location.hash = path;
                     if (mobileMenu.classList.contains('open')) {
                         toggleMobileMenu();
                     }
                 });
             });
             
-            window.addEventListener('popstate', handleRouting);
+            window.addEventListener('hashchange', handleRouting);
+            handleRouting();
 
 
             // --- Profile Selection Logic ---
@@ -551,7 +545,7 @@
                         mainContent.style.display = 'block';
                         mainContent.classList.add('slide-in-up');
                         setTimeout(() => mainContent.style.opacity = '1', 50);
-                        navigate('/home');
+                        showPage('#home');
                     }, 500);
                 });
             });
